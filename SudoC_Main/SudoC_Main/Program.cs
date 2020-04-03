@@ -1,8 +1,10 @@
-﻿using System;
+﻿//Written By Yaman From Here
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-
+// var <varname> = ""
+//
 namespace SudoC
 {
     class Program
@@ -18,7 +20,6 @@ namespace SudoC
             SudoC_Main.sudoC_Assembler easyC_Assembler = new SudoC_Main.sudoC_Assembler();
             string sMold = File.ReadAllText("./mold.c");
             File.WriteAllText(".\\Output.c", sMold.Replace("SudoC();", easyC_Assembler.Assemble(easyC_Lexxer.Lex(File.ReadAllText(args[0])))));
-
             
             Console.WriteLine("Finished SudoC Assembler " + fVersionNumber + " @ " + DateTime.Now);
 
@@ -31,7 +32,6 @@ namespace SudoC
             gccProcessStartInfo.RedirectStandardOutput = true; 
             gccProcess.StartInfo = gccProcessStartInfo;
 
-
             gccProcess.Start();
             Console.WriteLine("Started gcc @ " + DateTime.Now);
 
@@ -42,10 +42,6 @@ namespace SudoC
             Console.WriteLine("gcc ended @ " + DateTime.Now);
             Console.WriteLine("Program ended @ " + DateTime.Now);
             Process.Start("Output.exe");
-
-            
-
-
 
         }
 
@@ -61,7 +57,8 @@ namespace SudoC
         {
             print,
             vstring,
-            scan
+            scan,
+            equalize
         }
         public class SudoC_Pair
         {
@@ -78,7 +75,10 @@ namespace SudoC
         {
             private string sConstructor = string.Empty;
             private string sBuilder = string.Empty;
+            private bool bCaptureSpaces = false;
+            private bool bCaptureVarVal = false;
             private int iCounter = 0;
+            private string sCompleteName = string.Empty;
             private bool bInBrackets = false;
             private List<string> dVars = new List<string>();
             private List<SudoC_Pair> Lexxed_Code = new List<SudoC_Pair>();
@@ -100,7 +100,7 @@ namespace SudoC
                         {
                             bInBrackets = false;
                             foreach (SudoC_Pair SudoC_Pair in pPrintBracksLexxer(sConstructor))
-                                Lexxed_Code.Add(SudoC_Pair);
+                            Lexxed_Code.Add(SudoC_Pair);
                             sConstructor = string.Empty;
                             sBuilder = string.Empty;
                         }
@@ -113,6 +113,42 @@ namespace SudoC
                         if (Char == '(')
                         {
                             bInBrackets = true;
+                        }
+                    }
+                    if (sBuilder.Contains("var"))
+                    {
+                        if (Char == ';')
+                        {
+                            sCompleteName = sCompleteName.TrimStart('r');
+                            sCompleteName = sCompleteName.TrimEnd('=');
+
+                            foreach (SudoC_Pair sudoC_Pair in pStringProccessor_Var(new string[] { sConstructor, sCompleteName },SudoCInnerCode.vstring))
+                            {
+                                Lexxed_Code.Add(sudoC_Pair);
+                            }
+
+                            bCaptureVarVal = false;
+                            bCaptureSpaces = false;
+
+                            sConstructor = string.Empty;
+                            sCompleteName = string.Empty;
+                            sBuilder = string.Empty;
+                        }
+                        if (Char != ' '||bCaptureSpaces)
+                        {
+                            sConstructor += Char;
+                        }
+                        if (bCaptureVarVal)
+                        {
+                            sCompleteName = sConstructor;
+                            sConstructor = string.Empty;
+                            bCaptureSpaces = true;
+                            bCaptureVarVal = false;
+                        }
+                        if (Char == '=')
+                        {
+                            bCaptureVarVal = true;
+                            
                         }
                     }
                 }
@@ -149,7 +185,7 @@ namespace SudoC
                     {
                         bInOuts = false;
                         bInDQs = true;
-                        foreach (SudoC_Pair sudoC_Pair in pStringProccessor(sBuilder)) {
+                        foreach (SudoC_Pair sudoC_Pair in pStringProccessor_Print(new string[1] { sBuilder },SudoCInnerCode.print)) {
                             if (!(sudoC_Pair.InnerCode == SudoCInnerCode.print))
                             {
                                 Instructions.Add(sudoC_Pair);
@@ -198,7 +234,7 @@ namespace SudoC
             /// </summary>
             /// <param name="input"></param>
             /// <returns></returns>
-            private SudoC_Pair[] pStringProccessor(string input)
+            private SudoC_Pair[] pStringProccessor_Print(string[] input, SudoCInnerCode Context)
             {
                 bool bDoInput = false;
                 string sBuilder = string.Empty;
@@ -206,9 +242,10 @@ namespace SudoC
                 bool bGenerateName = false;
                 var sVarName = "Input" + iStringNameCounter;
                 List<SudoC_Pair> sudoC_Pairs = new List<SudoC_Pair>();
-                foreach (char Char in input)
+                foreach (char Char in input[0])
                 {
                     sBuilder += Char;
+
                     if (sBuilder.Contains("input"))
                     {
                         //scanf("%s", myString);
@@ -228,22 +265,59 @@ namespace SudoC
                         }
 
                     }
+                  
 
+                }
+                switch (Context) {
+                    case SudoCInnerCode.print:
+                        if (bDoInput)
+                        {
+                            if (!dVars.Contains(sVarName))
+                            {
+                                sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.vstring, new string[2] { sVarName, string.Empty }));
+                            }
+                            sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.scan, new string[1] { sVarName }));
+                            sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.print, new string[1] { sVarName }));
+                            dVars.Add(sVarName);
+                            iStringNameCounter++;
+                        }
+                        else
+                        {
+                            sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.print, new string[1] { input[0] }));
+                        }
+                        break;
+                   
+            }
+             
+                return sudoC_Pairs.ToArray();
+            }
+                private SudoC_Pair[] pStringProccessor_Var(string[] input, SudoCInnerCode Context)
+            {
+                bool bDoInput = false;
+                string sBuilder = string.Empty;
+                string sConstructer = string.Empty;
+                List<SudoC_Pair> sudoC_Pairs = new List<SudoC_Pair>();
+                foreach (char Char in input[0])
+                {
+                    sBuilder += Char;
+                    if (sBuilder==("input<>"))
+                    {
+                        bDoInput = true;
+                    }
                 }
                 if (bDoInput)
                 {
-                    if (!dVars.Contains(sVarName))
-                    {
-                        sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.vstring, new string[2] { sVarName, string.Empty }));
-                    }
-                    sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.scan, new string[1] { sVarName }));
-                    sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.print, new string[1] { sVarName }));
-                    dVars.Add(sVarName);
-                    iStringNameCounter++;
+                    sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.vstring,new string[2] {input[1],string.Empty }));
+                    sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.scan, new string[1] {input[1]}));
                 }
+                else
+                {
+                    sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.vstring, new string[2] { input[1], input[0] }));
+                }
+                dVars.Add(input[1]);
                 return sudoC_Pairs.ToArray();
             }
-        }
+            }
         public class sudoC_Assembler
         {
             private string Assembled = string.Empty;
@@ -274,11 +348,11 @@ namespace SudoC
                         case SudoCInnerCode.vstring:
                             if (Pair.Args[1] != string.Empty)
                             {
-                                Assembled += "char " + Pair.Args[0] + " = \"" + Pair.Args[1] + "\";";
+                                Assembled += "char " + Pair.Args[0] + "[2056] = \"" + Pair.Args[1] + "\";";
                             }
                             else
                             {
-                                Assembled += "char " + Pair.Args[0] + "[32];";
+                                Assembled += "char " + Pair.Args[0] + "[2056];";
                             }
                             Assembled += Environment.NewLine;
                             break;
@@ -287,6 +361,11 @@ namespace SudoC
                             Assembled += "scanf(\"%s\"," + Pair.Args[0] + ");";
                             Assembled += Environment.NewLine;
                             break;
+                        case SudoCInnerCode.equalize:
+                            Assembled += Pair.Args[0]+" = "+Pair.Args[1]+';';
+                            Assembled += Environment.NewLine;
+                            break;
+
                     }
 
                 }
@@ -296,3 +375,4 @@ namespace SudoC
     }
 
 }
+//to here
