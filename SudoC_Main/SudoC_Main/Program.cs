@@ -2,51 +2,51 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace EasyC
+namespace SudoC
 {
     class Program
     {
         static void Main(string[] args)
         {
-            if (!args[0].EndsWith(".ezc")) args[0] += ".ezc";
-            EasyC_Main.EasyC_Lexxer easyC_Lexxer = new EasyC_Main.EasyC_Lexxer();
-            EasyC_Main.EasyC_Assembler easyC_Assembler = new EasyC_Main.EasyC_Assembler();
+            if (!args[0].EndsWith(".sudoc")) args[0] += ".sudoc";
+            SudoC_Main.SudoC_Lexxer easyC_Lexxer = new SudoC_Main.SudoC_Lexxer();
+            SudoC_Main.sudoC_Assembler easyC_Assembler = new SudoC_Main.sudoC_Assembler();
             File.WriteAllText(".\\Output.c", easyC_Assembler.Assemble(easyC_Lexxer.Lex(File.ReadAllText(args[0]))));
         }
     }
-    public static class EasyC_Main
+    public static class SudoC_Main
     {
-        public enum EasyCInnerCode
+        public enum SudoCInnerCode
         {
             print,
             vstring,
             scan
         }
-        public class EasyC_Pair
+        public class SudoC_Pair
         {
-            public EasyC_Pair(EasyCInnerCode innerCode, string[] args)
+            public SudoC_Pair(SudoCInnerCode innerCode, string[] args)
             {
                 InnerCode = innerCode;
                 Args = args;
                
             }
-            public EasyCInnerCode InnerCode { get; private set; }
+            public SudoCInnerCode InnerCode { get; private set; }
             public string[] Args { get; private set; }
         }
-        public class EasyC_Lexxer
+        public class SudoC_Lexxer
         {
             private string sConstructor = string.Empty;
             private string sBuilder = string.Empty;
             private int iCounter = 0;
             private bool bInBrackets = false;
             private List<string> dVars = new List<string>();
-            private List<EasyC_Pair> Lexxed_Code = new List<EasyC_Pair>();
+            private List<SudoC_Pair> Lexxed_Code = new List<SudoC_Pair>();
             /// <summary>
             /// Main Lexxer Function
             /// </summary>
             /// <param name="Code">Code from user.</param>
             /// <returns>Inner_EasyC Output</returns>
-            public EasyC_Pair[] Lex(string Code)
+            public SudoC_Pair[] Lex(string Code)
             {
                 foreach (char Char in Code)
                 {
@@ -58,8 +58,8 @@ namespace EasyC
                         if (Char == ')')
                         {
                             bInBrackets = false;
-                            foreach (EasyC_Pair easyC_Pair in pPrintBracksLexxer(sConstructor))
-                                Lexxed_Code.Add(easyC_Pair);
+                            foreach (SudoC_Pair SudoC_Pair in pPrintBracksLexxer(sConstructor))
+                                Lexxed_Code.Add(SudoC_Pair);
                             sConstructor = string.Empty;
                             sBuilder = string.Empty;
                         }
@@ -82,22 +82,21 @@ namespace EasyC
             /// </summary>
             /// <param name="sInBracks"> Input Brackets</param>
             /// <returns></returns>
-            private EasyC_Pair[] pPrintBracksLexxer(string sInBracks)
+            private SudoC_Pair[] pPrintBracksLexxer(string sInBracks)
             {
                 bool bInDQs = false;
                 bool bInOuts = false;
-                bool bFinishedOuts = false;
                 string sBuilder = string.Empty;
                 string sConstructor = string.Empty;
                 char LastChar = '.';
-                List<EasyC_Pair> Instructions = new List<EasyC_Pair>();
-                List<EasyC_Pair> printInstructions = new List<EasyC_Pair>();
+                List<SudoC_Pair> Instructions = new List<SudoC_Pair>();
+                List<SudoC_Pair> printInstructions = new List<SudoC_Pair>();
                 foreach (char Char in sInBracks)
                 {    //Qoutes E
                     if ((Char == '\"' && bInDQs) || (Char == '\'' && !bInOuts))
                     {
                         bInDQs = false;
-                        printInstructions.Add(new EasyC_Pair(EasyCInnerCode.print, new string[] { "\"" + sConstructor + "\"" }));
+                        printInstructions.Add(new SudoC_Pair(SudoCInnerCode.print, new string[] { "\"" + sConstructor + "\"" }));
                         sConstructor = string.Empty;
                     }
 
@@ -106,14 +105,14 @@ namespace EasyC
                     {
                         bInOuts = false;
                         bInDQs = true;
-                        foreach (EasyC_Pair easyC_Pair in pStringProccessor(sBuilder)) {
-                            if (!(easyC_Pair.InnerCode == EasyCInnerCode.print))
+                        foreach (SudoC_Pair sudoC_Pair in pStringProccessor(sBuilder)) {
+                            if (!(sudoC_Pair.InnerCode == SudoCInnerCode.print))
                             {
-                                Instructions.Add(easyC_Pair);
+                                Instructions.Add(sudoC_Pair);
                             }
                             else
                             {
-                            printInstructions.Add(easyC_Pair);
+                            printInstructions.Add(sudoC_Pair);
                             }
                         }
                         sBuilder = string.Empty;
@@ -145,7 +144,7 @@ namespace EasyC
                     }
                     LastChar = Char;
                 }
-                foreach (EasyC_Pair easyC_Pair in printInstructions) Instructions.Add(easyC_Pair);
+                foreach (SudoC_Pair sudoC_Pair in printInstructions) Instructions.Add(sudoC_Pair);
                 return Instructions.ToArray();
             }
             private static int iStringNameCounter = 0;
@@ -155,14 +154,14 @@ namespace EasyC
             /// </summary>
             /// <param name="input"></param>
             /// <returns></returns>
-            private EasyC_Pair[] pStringProccessor(string input)
+            private SudoC_Pair[] pStringProccessor(string input)
             {
                 bool bDoInput = false;
                 string sBuilder = string.Empty;
                 string sConstructer = string.Empty;
                 bool bGenerateName = false;
                 var sVarName = "Input" + iStringNameCounter;
-                List<EasyC_Pair> easyC_Pairs = new List<EasyC_Pair>();
+                List<SudoC_Pair> sudoC_Pairs = new List<SudoC_Pair>();
                 foreach (char Char in input)
                 {
                     sBuilder += Char;
@@ -191,17 +190,17 @@ namespace EasyC
                 {
                     if (!dVars.Contains(sVarName))
                     {
-                        easyC_Pairs.Add(new EasyC_Pair(EasyCInnerCode.vstring, new string[2] { sVarName, string.Empty }));
+                        sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.vstring, new string[2] { sVarName, string.Empty }));
                     }
-                    easyC_Pairs.Add(new EasyC_Pair(EasyCInnerCode.scan, new string[1] { sVarName }));
-                    easyC_Pairs.Add(new EasyC_Pair(EasyCInnerCode.print, new string[1] { sVarName }));
+                    sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.scan, new string[1] { sVarName }));
+                    sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.print, new string[1] { sVarName }));
                     dVars.Add(sVarName);
                     iStringNameCounter++;
                 }
-                return easyC_Pairs.ToArray();
+                return sudoC_Pairs.ToArray();
             }
         }
-        public class EasyC_Assembler
+        public class sudoC_Assembler
         {
             private string Assembled = string.Empty;
             /// <summary>
@@ -209,18 +208,18 @@ namespace EasyC
             /// </summary>
             /// <param name="Lexxed_Code"></param>
             /// <returns>C Code</returns>
-            public string Assemble(EasyC_Pair[] Lexxed_Code)
+            public string Assemble(SudoC_Pair[] Lexxed_Code)
             {
-                foreach (EasyC_Pair Pair in Lexxed_Code)
+                foreach (SudoC_Pair Pair in Lexxed_Code)
                 {
                     switch (Pair.InnerCode)
                     {
                         ///Print Function
-                        case EasyCInnerCode.print:
+                        case SudoCInnerCode.print:
                             Assembled += "printf(" + Pair.Args[0] + ");";
                             Assembled += Environment.NewLine;
                             break;
-                        case EasyCInnerCode.vstring:
+                        case SudoCInnerCode.vstring:
                             if (Pair.Args[1] != string.Empty)
                             {
                                 Assembled += "string " + Pair.Args[0] + " = \"" + Pair.Args[1] + "\";";
@@ -231,7 +230,7 @@ namespace EasyC
                             }
                             Assembled += Environment.NewLine;
                             break;
-                        case EasyCInnerCode.scan:
+                        case SudoCInnerCode.scan:
                             //scanf("%s", myString);
                             Assembled += "scanf(\"%s\"," + Pair.Args[0] + ");";
                             Assembled += Environment.NewLine;
