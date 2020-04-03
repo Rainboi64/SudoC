@@ -7,14 +7,20 @@ namespace SudoC
 {
     class Program
     {
+        public static float fVersionNumber = 0.01f;
         static void Main(string[] args)
         {
+            
+            Console.WriteLine("Started SudoC Assembler " + fVersionNumber + " @ " + DateTime.Now);
+
             if (!args[0].EndsWith(".sudoc")) args[0] += ".sudoc";
             SudoC_Main.SudoC_Lexxer easyC_Lexxer = new SudoC_Main.SudoC_Lexxer();
             SudoC_Main.sudoC_Assembler easyC_Assembler = new SudoC_Main.sudoC_Assembler();
             string sMold = File.ReadAllText("./mold.c");
             File.WriteAllText(".\\Output.c", sMold.Replace("SudoC();", easyC_Assembler.Assemble(easyC_Lexxer.Lex(File.ReadAllText(args[0])))));
+
             
+            Console.WriteLine("Finished SudoC Assembler " + fVersionNumber + " @ " + DateTime.Now);
 
             Process gccProcess = new Process();
 
@@ -25,10 +31,22 @@ namespace SudoC
             gccProcessStartInfo.RedirectStandardOutput = true; 
             gccProcess.StartInfo = gccProcessStartInfo;
 
+
             gccProcess.Start();
+            Console.WriteLine("Started gcc @ " + DateTime.Now);
+
             gccProcess.BeginOutputReadLine();
 
             gccProcess.WaitForExit();
+
+            Console.WriteLine("gcc ended @ " + DateTime.Now);
+            Console.WriteLine("Program ended @ " + DateTime.Now);
+            Process.Start("Output.exe");
+
+            
+
+
+
         }
 
         private static void GccProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
