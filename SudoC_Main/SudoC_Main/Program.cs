@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace SudoC
@@ -11,7 +12,29 @@ namespace SudoC
             if (!args[0].EndsWith(".sudoc")) args[0] += ".sudoc";
             SudoC_Main.SudoC_Lexxer easyC_Lexxer = new SudoC_Main.SudoC_Lexxer();
             SudoC_Main.sudoC_Assembler easyC_Assembler = new SudoC_Main.sudoC_Assembler();
-            File.WriteAllText(".\\Output.c", easyC_Assembler.Assemble(easyC_Lexxer.Lex(File.ReadAllText(args[0]))));
+            string sMold = File.ReadAllText("./mold.c");
+            File.WriteAllText(".\\Output.c", sMold.Replace("SudoC();", easyC_Assembler.Assemble(easyC_Lexxer.Lex(File.ReadAllText(args[0])))));
+            
+
+            Process gccProcess = new Process();
+
+            ProcessStartInfo gccProcessStartInfo = new ProcessStartInfo("gcc", "Output.c -o Output.exe");
+            gccProcess.OutputDataReceived += GccProcess_OutputDataReceived;
+            gccProcessStartInfo.UseShellExecute = false;
+            gccProcessStartInfo.CreateNoWindow = false;
+            gccProcessStartInfo.RedirectStandardOutput = true; 
+            gccProcess.StartInfo = gccProcessStartInfo;
+
+            gccProcess.Start();
+            gccProcess.BeginOutputReadLine();
+
+            gccProcess.WaitForExit();
+        }
+
+        private static void GccProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+
+            Console.WriteLine("gcc reported @ " + DateTime.Now + " : " + e.Data);
         }
     }
     public static class SudoC_Main
@@ -96,7 +119,10 @@ namespace SudoC
                     if ((Char == '\"' && bInDQs) || (Char == '\'' && !bInOuts))
                     {
                         bInDQs = false;
-                        printInstructions.Add(new SudoC_Pair(SudoCInnerCode.print, new string[] { "\"" + sConstructor + "\"" }));
+                        if (sConstructor != string.Empty)
+                        {
+                            printInstructions.Add(new SudoC_Pair(SudoCInnerCode.print, new string[] { "\"" + sConstructor + "\"" })); 
+                        }
                         sConstructor = string.Empty;
                     }
 
@@ -216,17 +242,25 @@ namespace SudoC
                     {
                         ///Print Function
                         case SudoCInnerCode.print:
-                            Assembled += "printf(" + Pair.Args[0] + ");";
+                            if (Pair.Args[0].StartsWith("\"") && Pair.Args[0].EndsWith("\""))
+                            {
+                                Assembled += "printf(" + Pair.Args[0] + ");";
+                            }
+                            // printf("%s", variable);
+                            else
+                            {
+                                Assembled += "printf(\"%s\", "+Pair.Args[0] +");";
+                            }
                             Assembled += Environment.NewLine;
                             break;
                         case SudoCInnerCode.vstring:
                             if (Pair.Args[1] != string.Empty)
                             {
-                                Assembled += "string " + Pair.Args[0] + " = \"" + Pair.Args[1] + "\";";
+                                Assembled += "char " + Pair.Args[0] + " = \"" + Pair.Args[1] + "\";";
                             }
                             else
                             {
-                                Assembled += "string " + Pair.Args[0] + "[32];";
+                                Assembled += "char " + Pair.Args[0] + "[32];";
                             }
                             Assembled += Environment.NewLine;
                             break;
