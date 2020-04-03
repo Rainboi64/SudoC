@@ -28,6 +28,7 @@ namespace EasyC
             {
                 InnerCode = innerCode;
                 Args = args;
+               
             }
             public EasyCInnerCode InnerCode { get; private set; }
             public string[] Args { get; private set; }
@@ -105,7 +106,16 @@ namespace EasyC
                     {
                         bInOuts = false;
                         bInDQs = true;
-                        foreach (EasyC_Pair easyC_Pair in pStringProccessor(sBuilder)) Instructions.Add(easyC_Pair);
+                        foreach (EasyC_Pair easyC_Pair in pStringProccessor(sBuilder)) {
+                            if (!(easyC_Pair.InnerCode == EasyCInnerCode.print))
+                            {
+                                Instructions.Add(easyC_Pair);
+                            }
+                            else
+                            {
+                            printInstructions.Add(easyC_Pair);
+                            }
+                        }
                         sBuilder = string.Empty;
                     }
 

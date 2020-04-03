@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SudoC_Main": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld"
+    }
+  }
+}
