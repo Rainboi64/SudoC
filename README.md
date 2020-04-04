@@ -10,7 +10,10 @@ var Name = input<>;
 print("Hello 'Name'!")
 print("\n That is a cool name though 'Name'")
 ```
-in the example above we use```python var Name = input<>; ``` to create a variable but that's not needed in SudoC. You can write
+in the example above we use
+```python
+var Name = input<>;
+``` to create a variable but that's not needed in SudoC. You can write
 ```python
 print("Name:")
 print("Hello 'input<Name>'!")
