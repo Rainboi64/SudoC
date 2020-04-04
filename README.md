@@ -5,3 +5,12 @@ Converts easy and understandable syntax to very hard but effeicient C.
 print("Name:")
 print("Hello 'input<Name>'!")
 ```
+Converts to
+```c
+printf("Name:");
+char Name[2056];
+scanf("%s",Name);
+printf("Hello ");
+printf("%s", Name);
+printf("!");
+```
