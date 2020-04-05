@@ -32,3 +32,30 @@ printf("!");
 printf("\n That is a cool name though ");
 printf("%s", Name);
 ```
+The variable creator system is smart. It knows when it should create the variable and when it shouldn't
+```python
+print("Name:")
+print("Hello 'input<Variable>'!")
+print("\nThat is a cool name though 'Variable'")
+print("\nHow Old Are You 'Variable'?!:")
+print("\nWow 'input<Variable>'!")
+```
+To 
+```c
+printf("Name:");
+char Variable[2056];
+scanf("%s",Variable);
+printf("Hello ");
+printf("%s", Variable);
+printf("!");
+printf("\nThat is a cool name though ");
+printf("%s", Variable);
+printf("\nHow Old Are You ");
+printf("%s", Variable);
+printf("?!:");
+scanf("%s",Variable);
+printf("\nWow ");
+printf("%s", Variable);
+printf("!");
+```
+You can see how it created the variable in the first input call, but used the existing one in the second.
