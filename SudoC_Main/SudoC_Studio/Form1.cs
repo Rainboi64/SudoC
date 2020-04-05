@@ -31,6 +31,7 @@ namespace SudoC_Studio
             try
             {
                 Statics.dVars.Clear();
+                Statics.iStringNameCounter = 0;
                 SudoC_Lexxer easyC_Lexxer = new SudoC_Lexxer();
                 sudoC_Assembler easyC_Assembler = new sudoC_Assembler();
                 fastColoredTextBox2.Text = easyC_Assembler.Assemble(easyC_Lexxer.Lex(fastColoredTextBox1.Text));
