@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SudoC_Main", "SudoC_Main\Su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudoC_Windows", "SudoC_Windows\SudoC_Windows.csproj", "{67AEBB89-2B00-42C5-A3AE-84BFEE99F0ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudoC_Dotnet", "SudoC_Dotnet\SudoC_Dotnet.csproj", "{69FA827E-C64B-4700-8377-11C3E8F3CA49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SudoC_Dotnet", "SudoC_Dotnet\SudoC_Dotnet.csproj", "{69FA827E-C64B-4700-8377-11C3E8F3CA49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudoC_Studio", "SudoC_Studio\SudoC_Studio.csproj", "{35B82FBE-5428-4CE9-B422-3C0B221506C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{69FA827E-C64B-4700-8377-11C3E8F3CA49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69FA827E-C64B-4700-8377-11C3E8F3CA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69FA827E-C64B-4700-8377-11C3E8F3CA49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B82FBE-5428-4CE9-B422-3C0B221506C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B82FBE-5428-4CE9-B422-3C0B221506C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B82FBE-5428-4CE9-B422-3C0B221506C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B82FBE-5428-4CE9-B422-3C0B221506C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
