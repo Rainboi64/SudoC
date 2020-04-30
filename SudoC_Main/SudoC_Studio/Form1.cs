@@ -47,11 +47,11 @@ namespace SudoC_Studio
         {
             try
             {
-                Statics.dVars.Clear();
-                Statics.iStringNameCounter = 0;
                 SudoC_Lexxer easyC_Lexxer = new SudoC_Lexxer();
                 sudoC_Assembler easyC_Assembler = new sudoC_Assembler();
+                Statics.reset();
                 fastColoredTextBox2.Text =Mold.Replace("SudoC();", easyC_Assembler.Assemble(easyC_Lexxer.Lex(fastColoredTextBox1.Text)));
+                tslStatus.Text = ("Finished!");
             }
             catch (Exception ex)
             {
@@ -68,7 +68,6 @@ namespace SudoC_Studio
         private void FastColoredTextBox1_KeyUp(object sender, KeyEventArgs e)
         {
             tAutoCompiler.Stop();
-            tslStatus.Text = ("Finished!");
         }
 
         private void SplitContainer1_Panel1_Paint(object sender, PaintEventArgs e)

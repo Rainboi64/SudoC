@@ -35,6 +35,7 @@
             this.ribbonOrbMenuItem2 = new System.Windows.Forms.RibbonOrbMenuItem();
             this.ribbonOrbMenuItem3 = new System.Windows.Forms.RibbonOrbMenuItem();
             this.ribbonOrbMenuItem4 = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.ribbonUpDown1 = new System.Windows.Forms.RibbonUpDown();
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.RibbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
@@ -42,6 +43,8 @@
             this.ribbonButton3 = new System.Windows.Forms.RibbonButton();
             this.ribbonSeparator1 = new System.Windows.Forms.RibbonSeparator();
             this.ribbonButton4 = new System.Windows.Forms.RibbonButton();
+            this.ribbonCheckBox2 = new System.Windows.Forms.RibbonCheckBox();
+            this.ribbonCheckBox3 = new System.Windows.Forms.RibbonCheckBox();
             this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
             this.ribbonButton5 = new System.Windows.Forms.RibbonButton();
             this.ribbonButton6 = new System.Windows.Forms.RibbonButton();
@@ -53,6 +56,15 @@
             this.ribbonButton11 = new System.Windows.Forms.RibbonButton();
             this.ribbonButton13 = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
+            this.ribbonButton14 = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton15 = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton16 = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton17 = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton18 = new System.Windows.Forms.RibbonButton();
+            this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
+            this.ribbonButton12 = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton19 = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton20 = new System.Windows.Forms.RibbonButton();
             this.ruler2 = new FastColoredTextBoxNS.Ruler();
             this.fastColoredTextBox2 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.ruler1 = new FastColoredTextBoxNS.Ruler();
@@ -67,18 +79,6 @@
             this.tAutoCompiler = new System.Windows.Forms.Timer(this.components);
             this.ribbonCheckBox1 = new System.Windows.Forms.RibbonCheckBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.ribbonCheckBox2 = new System.Windows.Forms.RibbonCheckBox();
-            this.ribbonCheckBox3 = new System.Windows.Forms.RibbonCheckBox();
-            this.ribbonButton14 = new System.Windows.Forms.RibbonButton();
-            this.ribbonButton15 = new System.Windows.Forms.RibbonButton();
-            this.ribbonButton16 = new System.Windows.Forms.RibbonButton();
-            this.ribbonButton17 = new System.Windows.Forms.RibbonButton();
-            this.ribbonButton18 = new System.Windows.Forms.RibbonButton();
-            this.ribbonUpDown1 = new System.Windows.Forms.RibbonUpDown();
-            this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
-            this.ribbonButton12 = new System.Windows.Forms.RibbonButton();
-            this.ribbonButton19 = new System.Windows.Forms.RibbonButton();
-            this.ribbonButton20 = new System.Windows.Forms.RibbonButton();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -170,6 +170,13 @@
             this.ribbonOrbMenuItem4.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbMenuItem4.SmallImage")));
             this.ribbonOrbMenuItem4.Text = "Exit";
             // 
+            // ribbonUpDown1
+            // 
+            this.ribbonUpDown1.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
+            this.ribbonUpDown1.Name = "ribbonUpDown1";
+            this.ribbonUpDown1.TextBoxText = "";
+            this.ribbonUpDown1.TextBoxWidth = 50;
+            // 
             // ribbonTab1
             // 
             this.ribbonTab1.Name = "ribbonTab1";
@@ -230,6 +237,18 @@
             this.ribbonButton4.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.SmallImage")));
             this.ribbonButton4.Style = System.Windows.Forms.RibbonButtonStyle.DropDown;
             this.ribbonButton4.Text = "Hide";
+            // 
+            // ribbonCheckBox2
+            // 
+            this.ribbonCheckBox2.Name = "ribbonCheckBox2";
+            this.ribbonCheckBox2.Text = "Auto-Hide Ribbon";
+            this.ribbonCheckBox2.CheckBoxCheckChanged += new System.EventHandler(this.RibbonCheckBox2_CheckBoxCheckChanged);
+            // 
+            // ribbonCheckBox3
+            // 
+            this.ribbonCheckBox3.Name = "ribbonCheckBox3";
+            this.ribbonCheckBox3.Text = "Hide Preview Tab";
+            this.ribbonCheckBox3.CheckBoxCheckChanged += new System.EventHandler(this.RibbonCheckBox3_Click);
             // 
             // ribbonPanel2
             // 
@@ -335,6 +354,87 @@
             this.ribbonPanel3.Name = "ribbonPanel3";
             this.ribbonPanel3.Text = "Edit";
             // 
+            // ribbonButton14
+            // 
+            this.ribbonButton14.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton14.Image")));
+            this.ribbonButton14.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton14.LargeImage")));
+            this.ribbonButton14.Name = "ribbonButton14";
+            this.ribbonButton14.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton14.SmallImage")));
+            this.ribbonButton14.Text = "Copy";
+            this.ribbonButton14.Click += new System.EventHandler(this.RibbonButton14_Click);
+            // 
+            // ribbonButton15
+            // 
+            this.ribbonButton15.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton15.Image")));
+            this.ribbonButton15.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton15.LargeImage")));
+            this.ribbonButton15.Name = "ribbonButton15";
+            this.ribbonButton15.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton15.SmallImage")));
+            this.ribbonButton15.Text = "Cut";
+            this.ribbonButton15.Click += new System.EventHandler(this.RibbonButton15_Click);
+            // 
+            // ribbonButton16
+            // 
+            this.ribbonButton16.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton16.Image")));
+            this.ribbonButton16.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton16.LargeImage")));
+            this.ribbonButton16.Name = "ribbonButton16";
+            this.ribbonButton16.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton16.SmallImage")));
+            this.ribbonButton16.Text = "Paste";
+            this.ribbonButton16.Click += new System.EventHandler(this.RibbonButton16_Click);
+            // 
+            // ribbonButton17
+            // 
+            this.ribbonButton17.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton17.Image")));
+            this.ribbonButton17.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton17.LargeImage")));
+            this.ribbonButton17.Name = "ribbonButton17";
+            this.ribbonButton17.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton17.SmallImage")));
+            this.ribbonButton17.Text = "Fold";
+            this.ribbonButton17.Click += new System.EventHandler(this.RibbonButton17_Click);
+            // 
+            // ribbonButton18
+            // 
+            this.ribbonButton18.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton18.Image")));
+            this.ribbonButton18.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton18.LargeImage")));
+            this.ribbonButton18.Name = "ribbonButton18";
+            this.ribbonButton18.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton18.SmallImage")));
+            this.ribbonButton18.Text = "Replace";
+            this.ribbonButton18.Click += new System.EventHandler(this.RibbonButton18_Click);
+            // 
+            // ribbonPanel4
+            // 
+            this.ribbonPanel4.Items.Add(this.ribbonButton12);
+            this.ribbonPanel4.Items.Add(this.ribbonButton20);
+            this.ribbonPanel4.Name = "ribbonPanel4";
+            this.ribbonPanel4.Text = "File";
+            // 
+            // ribbonButton12
+            // 
+            this.ribbonButton12.AltKey = "";
+            this.ribbonButton12.DropDownItems.Add(this.ribbonButton19);
+            this.ribbonButton12.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton12.Image")));
+            this.ribbonButton12.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton12.LargeImage")));
+            this.ribbonButton12.Name = "ribbonButton12";
+            this.ribbonButton12.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton12.SmallImage")));
+            this.ribbonButton12.Text = "Open";
+            this.ribbonButton12.Click += new System.EventHandler(this.RibbonOrbMenuItem1_Click);
+            // 
+            // ribbonButton19
+            // 
+            this.ribbonButton19.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton19.Image")));
+            this.ribbonButton19.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton19.LargeImage")));
+            this.ribbonButton19.Name = "ribbonButton19";
+            this.ribbonButton19.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton19.SmallImage")));
+            this.ribbonButton19.Text = "ribbonButton19";
+            // 
+            // ribbonButton20
+            // 
+            this.ribbonButton20.AltKey = "ctrl + s";
+            this.ribbonButton20.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton20.Image")));
+            this.ribbonButton20.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton20.LargeImage")));
+            this.ribbonButton20.Name = "ribbonButton20";
+            this.ribbonButton20.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton20.SmallImage")));
+            this.ribbonButton20.Text = "Save";
+            this.ribbonButton20.Click += new System.EventHandler(this.RibbonButton20_Click);
+            // 
             // ruler2
             // 
             this.ruler2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -348,6 +448,7 @@
             // 
             // fastColoredTextBox2
             // 
+            this.fastColoredTextBox2.AutoCompleteBrackets = true;
             this.fastColoredTextBox2.AutoCompleteBracketsList = new char[] {
         '(',
         ')',
@@ -390,6 +491,7 @@
             // 
             // fastColoredTextBox1
             // 
+            this.fastColoredTextBox1.AutoCompleteBrackets = true;
             this.fastColoredTextBox1.AutoCompleteBracketsList = new char[] {
         '(',
         ')',
@@ -533,106 +635,6 @@
             this.splitter1.Size = new System.Drawing.Size(1534, 1);
             this.splitter1.TabIndex = 2;
             this.splitter1.TabStop = false;
-            // 
-            // ribbonCheckBox2
-            // 
-            this.ribbonCheckBox2.Name = "ribbonCheckBox2";
-            this.ribbonCheckBox2.Text = "Auto-Hide Ribbon";
-            this.ribbonCheckBox2.CheckBoxCheckChanged += new System.EventHandler(this.RibbonCheckBox2_CheckBoxCheckChanged);
-            // 
-            // ribbonCheckBox3
-            // 
-            this.ribbonCheckBox3.Name = "ribbonCheckBox3";
-            this.ribbonCheckBox3.Text = "Hide Preview Tab";
-            this.ribbonCheckBox3.CheckBoxCheckChanged += new System.EventHandler(this.RibbonCheckBox3_Click);
-            // 
-            // ribbonButton14
-            // 
-            this.ribbonButton14.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton14.Image")));
-            this.ribbonButton14.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton14.LargeImage")));
-            this.ribbonButton14.Name = "ribbonButton14";
-            this.ribbonButton14.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton14.SmallImage")));
-            this.ribbonButton14.Text = "Copy";
-            this.ribbonButton14.Click += new System.EventHandler(this.RibbonButton14_Click);
-            // 
-            // ribbonButton15
-            // 
-            this.ribbonButton15.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton15.Image")));
-            this.ribbonButton15.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton15.LargeImage")));
-            this.ribbonButton15.Name = "ribbonButton15";
-            this.ribbonButton15.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton15.SmallImage")));
-            this.ribbonButton15.Text = "Cut";
-            this.ribbonButton15.Click += new System.EventHandler(this.RibbonButton15_Click);
-            // 
-            // ribbonButton16
-            // 
-            this.ribbonButton16.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton16.Image")));
-            this.ribbonButton16.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton16.LargeImage")));
-            this.ribbonButton16.Name = "ribbonButton16";
-            this.ribbonButton16.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton16.SmallImage")));
-            this.ribbonButton16.Text = "Paste";
-            this.ribbonButton16.Click += new System.EventHandler(this.RibbonButton16_Click);
-            // 
-            // ribbonButton17
-            // 
-            this.ribbonButton17.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton17.Image")));
-            this.ribbonButton17.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton17.LargeImage")));
-            this.ribbonButton17.Name = "ribbonButton17";
-            this.ribbonButton17.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton17.SmallImage")));
-            this.ribbonButton17.Text = "Fold";
-            this.ribbonButton17.Click += new System.EventHandler(this.RibbonButton17_Click);
-            // 
-            // ribbonButton18
-            // 
-            this.ribbonButton18.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton18.Image")));
-            this.ribbonButton18.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton18.LargeImage")));
-            this.ribbonButton18.Name = "ribbonButton18";
-            this.ribbonButton18.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton18.SmallImage")));
-            this.ribbonButton18.Text = "Replace";
-            this.ribbonButton18.Click += new System.EventHandler(this.RibbonButton18_Click);
-            // 
-            // ribbonUpDown1
-            // 
-            this.ribbonUpDown1.MaxSizeMode = System.Windows.Forms.RibbonElementSizeMode.Compact;
-            this.ribbonUpDown1.Name = "ribbonUpDown1";
-            this.ribbonUpDown1.TextBoxText = "";
-            this.ribbonUpDown1.TextBoxWidth = 50;
-            // 
-            // ribbonPanel4
-            // 
-            this.ribbonPanel4.Items.Add(this.ribbonButton12);
-            this.ribbonPanel4.Items.Add(this.ribbonButton20);
-            this.ribbonPanel4.Name = "ribbonPanel4";
-            this.ribbonPanel4.Text = "File";
-            // 
-            // ribbonButton12
-            // 
-            this.ribbonButton12.AltKey = "";
-            this.ribbonButton12.DropDownItems.Add(this.ribbonButton19);
-            this.ribbonButton12.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton12.Image")));
-            this.ribbonButton12.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton12.LargeImage")));
-            this.ribbonButton12.Name = "ribbonButton12";
-            this.ribbonButton12.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton12.SmallImage")));
-            this.ribbonButton12.Text = "Open";
-            this.ribbonButton12.Click += new System.EventHandler(this.RibbonOrbMenuItem1_Click);
-            // 
-            // ribbonButton19
-            // 
-            this.ribbonButton19.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton19.Image")));
-            this.ribbonButton19.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton19.LargeImage")));
-            this.ribbonButton19.Name = "ribbonButton19";
-            this.ribbonButton19.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton19.SmallImage")));
-            this.ribbonButton19.Text = "ribbonButton19";
-            // 
-            // ribbonButton20
-            // 
-            this.ribbonButton20.AltKey = "ctrl + s";
-            this.ribbonButton20.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton20.Image")));
-            this.ribbonButton20.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton20.LargeImage")));
-            this.ribbonButton20.Name = "ribbonButton20";
-            this.ribbonButton20.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton20.SmallImage")));
-            this.ribbonButton20.Text = "Save";
-            this.ribbonButton20.Click += new System.EventHandler(this.RibbonButton20_Click);
             // 
             // Form1
             // 
