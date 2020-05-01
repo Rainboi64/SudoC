@@ -96,7 +96,6 @@ namespace SudoC_Main.Modules
             foreach (char Char in input[0])
             {
                 sBuilder += Char;
-
                 if (sBuilder.Contains("input"))
                 {
                     //scanf("%s", myString);
@@ -114,21 +113,18 @@ namespace SudoC_Main.Modules
                     {
                         bGenerateName = true;
                     }
-
                 }
-
-
             }
                     if (bDoInput)
                     {
                         if (!Statics.dVars.Contains(sVarName))
                         {
                             sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.vstring, new string[2] { sVarName, string.Empty }));
+                            Statics.iStringNameCounter++;
                         }
                         sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.scan, new string[1] { sVarName }));
                         sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.print, new string[1] { sVarName }));
                         Statics.dVars.Add(sVarName);
-                        Statics.iStringNameCounter++;
                     }
                     else
                     {

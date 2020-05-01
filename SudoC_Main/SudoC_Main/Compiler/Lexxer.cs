@@ -32,7 +32,17 @@ namespace SudoC_Main.Compiler
             {
                 iCounter++;
                 sBuilder += Char;
-                
+
+
+                //if (sBuilder.EndsWith(";") && iTaskIndex ==  0)
+                //{
+                //    foreach ()
+                //    {
+
+                //    }
+                //    sBuilder = "";
+                //}
+
                 if ((sBuilder.Contains("</") && iTaskIndex == 0) || iTaskIndex == 1)
                 {
                     iTaskIndex = 1;
@@ -292,10 +302,9 @@ namespace SudoC_Main.Compiler
                             sCompleteName = sCompleteName.TrimStart(new char[] { ')', ';', '}' });
                             sCompleteName = sCompleteName.TrimStart(sRepeater[sRepeater.Length - 1]);
                             sCompleteName = sCompleteName.TrimEnd('\r', '\n', '{');
-                            //     sConstructor.Replace(@"\;", ";");
-                            var sudoc_lexxerSecondary = new SudoC_Lexxer();
-                            var soduc_assemblerSecondary = new sudoC_Assembler();
-                            Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.foreachloop, new string[3] { sRepeater, sCompleteName, soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(sConstructor)) }));
+                            LoopModule loopModule = new LoopModule();
+                            foreach (SudoC_Pair sudoC_Pair in loopModule.Loop(sCompleteName, sRepeater, sConstructor))
+                                Lexxed_Code.Add(sudoC_Pair);
                             bFinishedCapture = false;
                             bCaptureValue = false;
                             bCaptureSpaces = false;
