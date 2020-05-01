@@ -14,7 +14,8 @@ namespace SudoC_Main
         equalize,
         context,
         fetch,
-        include
+        include,
+        foreachloop
     }
 
     public class Statics

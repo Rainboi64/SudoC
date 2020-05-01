@@ -1,4 +1,5 @@
-﻿using SudoC_Main;
+﻿using FastColoredTextBoxNS;
+using SudoC_Main;
 using SudoC_Main.Compiler;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,22 @@ using System.Windows.Forms;
 
 namespace SudoC_Studio
 {
-    public partial class Form1 :Form
+    public partial class Form1 : Form
     {
         static string filename = string.Empty;
-        static string Mold=string.Empty;
+        static string Mold = string.Empty;
+        AutocompleteMenu popupMenu;
+        Style KeywordsStyle = new TextStyle(Brushes.DeepPink, null, FontStyle.Regular);
+        Style FunctionNameStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
+        Style NamesNameStyle = new TextStyle(Brushes.DarkRed, null, FontStyle.Regular);
+
+        string[] keywords = { "var = ;"};
+        string[] methods = { "fetch()","input<>","print()"};
+        string[] snippets = { "if(^)\n{\n;\n}", "if(^)\n{\n;\n}\nelse\n{\n;\n}", "for(^;;)\n{\n;\n}", "while(^)\n{\n;\n}", "do${\n^;\n}while();", "switch(^)\n{\ncase : break;\n}" };
+        string[] declarationSnippets = {
+               "context ^\n{\n}"
+               };
+        
         public Form1(string InputArg)
         {
             InitializeComponent();
@@ -28,16 +41,41 @@ namespace SudoC_Studio
             ribbonCheckBox3.Checked = StudioStatics.Settings.bHideCTab;
             if (InputArg != "")
             {
-               fastColoredTextBox1.Text= File.ReadAllText(InputArg);
+                fastColoredTextBox1.Text = File.ReadAllText(InputArg);
                 filename = InputArg;
             }
+            BuildAutocompleteMenu();
         }
+        private void BuildAutocompleteMenu()
+        {
+            popupMenu = new AutocompleteMenu(fastColoredTextBox1);
+            List<AutocompleteItem> items = new List<AutocompleteItem>();
+            popupMenu.AllowTabKey = true;
+            foreach (var item in snippets)
+                items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
+            foreach (var item in declarationSnippets)
+                items.Add(new DeclarationSnippet(item) { ImageIndex = 0 });
+            foreach (var item in methods)
+                items.Add(new MethodAutocompleteItem(item) { ImageIndex = 2 });
+            foreach (var item in keywords)
+                items.Add(new AutocompleteItem(item));
+            foreach (var item in Statics.dContexts)
+                items.Add(new AutocompleteItem(item.Key));
+
+            items.Add(new InsertEnterSnippet());
+            items.Add(new InsertSpaceSnippet());
+            items.Add(new InsertSpaceSnippet(@"^(\w+)([=<>!:]+)(\w+)$"));
+            //set as autocomplete source
+            popupMenu.Items.SetAutocompleteItems(items);
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS;
-            fastColoredTextBox2.Language = FastColoredTextBoxNS.Language.CSharp;
             fastColoredTextBox2.Text = Mold.Replace("SudoC();",string.Empty);
+            tUpdatePopupMenu.Start();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -50,7 +88,7 @@ namespace SudoC_Studio
                 SudoC_Lexxer easyC_Lexxer = new SudoC_Lexxer();
                 sudoC_Assembler easyC_Assembler = new sudoC_Assembler();
                 Statics.reset();
-                fastColoredTextBox2.Text =Mold.Replace("SudoC();", easyC_Assembler.Assemble(easyC_Lexxer.Lex(fastColoredTextBox1.Text)));
+                fastColoredTextBox2.Text =Mold.Replace("SudoC();",easyC_Assembler.Assemble(easyC_Lexxer.Lex(fastColoredTextBox1.Text)));
                 tslStatus.Text = ("Finished!");
             }
             catch (Exception ex)
@@ -245,6 +283,42 @@ namespace SudoC_Studio
                 Process.Start(@".\SudoC_Windows.exe", filename);
             }
             
+        }
+
+        private void FastColoredTextBox2_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+        }
+
+        private void TUpdatePopupMenu_Tick(object sender, EventArgs e)
+        {
+            BuildAutocompleteMenu();
+        }
+
+        private void FastColoredTextBox1_TextChangedDelayed(object sender, TextChangedEventArgs e)
+        {
+            //clear styles
+            fastColoredTextBox1.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
+            //highlight keywords of LISP
+            fastColoredTextBox1.Range.SetStyle(KeywordsStyle, @"\b(context)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            fastColoredTextBox1.Range.SetStyle(FunctionNameStyle, @"\b(print|fetch|include)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            var Names = @"\b(";
+            foreach (string name in Statics.dContexts.Keys)
+            {
+                Names += name + "|";
+            }
+            foreach (string name in Statics.dDefines.Keys)
+            {
+                Names += name + "|";
+            }
+
+            foreach (string name in Statics.dVars)
+            {
+                Names += name + "|";
+            }
+            Names.TrimEnd('|');
+            Names += @")\b";
+            fastColoredTextBox1.Range.SetStyle(NamesNameStyle, Names, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
         }
     }
 }

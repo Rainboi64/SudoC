@@ -15,8 +15,12 @@ namespace SudoC_Main.Compiler
         private int iCounter = 0;
         private string sCompleteName = string.Empty;
         private bool bInScope = false;
+        private string sRepeater;
         private int iTaskIndex = 0;
+        private int iBracketsLevel = 0;
         private List<SudoC_Pair> Lexxed_Code = new List<SudoC_Pair>();
+        private bool bFinishedCapture;
+
         /// <summary>
         /// Main Lexxer Function
         /// </summary>
@@ -151,7 +155,11 @@ namespace SudoC_Main.Compiler
                 if ((sBuilder.Contains("context") && iTaskIndex == 0) || iTaskIndex == 5)
                 {
                     iTaskIndex = 5;
-                    if (Char == '}')
+                    if (Char == '{' && iBracketsLevel >= 1)
+                    {
+                        iBracketsLevel++;
+                    }
+                    if (Char == '}' && iBracketsLevel == 1)
                     {
                         sCompleteName = sCompleteName.TrimStart(new char[] { ')', ';', '}' });
                         sCompleteName = sCompleteName.TrimStart('t');
@@ -167,6 +175,7 @@ namespace SudoC_Main.Compiler
                         sConstructor = string.Empty;
                         sCompleteName = string.Empty;
                         sBuilder = string.Empty;
+                        iBracketsLevel = 0;
                         iTaskIndex = 0;
                     }
                     if (Char != ' ' || bCaptureSpaces)
@@ -180,9 +189,14 @@ namespace SudoC_Main.Compiler
                         bCaptureSpaces = true;
                         bCaptureValue = false;
                     }
-                    if (Char == '{')
+                    if (Char == '}' && iBracketsLevel > 1)
+                    {
+                        iBracketsLevel--;
+                    }
+                    if (Char == '{' && iBracketsLevel == 0)
                     {
                         bCaptureValue = true;
+                        iBracketsLevel++;
                     }
                     goto cycleEnd;
                 }
@@ -242,6 +256,78 @@ namespace SudoC_Main.Compiler
                         sBuilder = string.Empty;
                         iTaskIndex = 0;
                     }
+                    goto cycleEnd;
+                }
+                if ((sBuilder.Contains("repeat") && iTaskIndex == 0) || iTaskIndex == 9)
+                {
+                    iTaskIndex = 9;
+                    if (Char == ')' && !bFinishedCapture)
+                    {
+                        sConstructor = sConstructor.TrimStart(new char[] { ')', ';', '}' });
+                        sCompleteName = sCompleteName.TrimStart('t');
+                        bInScope = false;
+                        bFinishedCapture = true;
+                        sRepeater = sConstructor;
+                        sConstructor = string.Empty;
+                    }
+
+                    if (bInScope && !bFinishedCapture)
+                    {
+                        sConstructor += Char;
+                    }
+
+                    if (Char == '(' && !bFinishedCapture)
+                    {
+                        bInScope = true;
+                    }
+
+                    if (bFinishedCapture)
+                    {
+                        if (Char == '{' && iBracketsLevel >= 1)
+                        {
+                            iBracketsLevel++;
+                        }
+                        if (Char == '}' && iBracketsLevel == 1 )
+                        {
+                            sCompleteName = sCompleteName.TrimStart(new char[] { ')', ';', '}' });
+                            sCompleteName = sCompleteName.TrimStart(sRepeater[sRepeater.Length - 1]);
+                            sCompleteName = sCompleteName.TrimEnd('\r', '\n', '{');
+                            //     sConstructor.Replace(@"\;", ";");
+                            var sudoc_lexxerSecondary = new SudoC_Lexxer();
+                            var soduc_assemblerSecondary = new sudoC_Assembler();
+                            Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.foreachloop, new string[3] { sRepeater, sCompleteName, soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(sConstructor)) }));
+                            bFinishedCapture = false;
+                            bCaptureValue = false;
+                            bCaptureSpaces = false;
+                            sRepeater = string.Empty;
+                            sConstructor = string.Empty;
+                            sCompleteName = string.Empty;
+                            sBuilder = string.Empty;
+                            iBracketsLevel = 0;
+                            iTaskIndex = 0;
+                        }
+                        if ((Char != ' ' || bCaptureSpaces))
+                        {
+                            sConstructor += Char;
+                        }
+                        if (bCaptureValue)
+                        {
+                            sCompleteName = sConstructor;
+                            sConstructor = string.Empty;
+                            bCaptureSpaces = true;
+                            bCaptureValue = false;
+                        }
+                        if (Char == '}' && iBracketsLevel > 1 )
+                        {
+                            iBracketsLevel--;
+                        }
+                        if (Char == '{' && iBracketsLevel == 0)
+                        {
+                            bCaptureValue = true;
+                            iBracketsLevel++;
+                        }
+                    }
+                  
                     goto cycleEnd;
                 }
             cycleEnd:;

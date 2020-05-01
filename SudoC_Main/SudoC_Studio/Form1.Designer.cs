@@ -79,6 +79,7 @@
             this.tAutoCompiler = new System.Windows.Forms.Timer(this.components);
             this.ribbonCheckBox1 = new System.Windows.Forms.RibbonCheckBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
+            this.tUpdatePopupMenu = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -460,23 +461,34 @@
         '\"',
         '\'',
         '\''};
-            this.fastColoredTextBox2.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.fastColoredTextBox2.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n^\\s*(case|default)\\s*[^:]" +
+    "*(?<range>:)\\s*(?<range>[^;]+);\r\n";
+            this.fastColoredTextBox2.AutoScrollMinSize = new System.Drawing.Size(0, 14);
             this.fastColoredTextBox2.BackBrush = null;
+            this.fastColoredTextBox2.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
             this.fastColoredTextBox2.CharHeight = 14;
             this.fastColoredTextBox2.CharWidth = 8;
             this.fastColoredTextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBox2.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fastColoredTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fastColoredTextBox2.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBox2.IsReplaceMode = false;
+            this.fastColoredTextBox2.Language = FastColoredTextBoxNS.Language.CSharp;
+            this.fastColoredTextBox2.LeftBracket = '(';
+            this.fastColoredTextBox2.LeftBracket2 = '{';
             this.fastColoredTextBox2.Location = new System.Drawing.Point(0, 0);
             this.fastColoredTextBox2.Name = "fastColoredTextBox2";
             this.fastColoredTextBox2.Paddings = new System.Windows.Forms.Padding(0);
             this.fastColoredTextBox2.ReadOnly = true;
+            this.fastColoredTextBox2.RightBracket = ')';
+            this.fastColoredTextBox2.RightBracket2 = '}';
             this.fastColoredTextBox2.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fastColoredTextBox2.Size = new System.Drawing.Size(505, 847);
             this.fastColoredTextBox2.TabIndex = 5;
+            this.fastColoredTextBox2.VirtualSpace = true;
+            this.fastColoredTextBox2.WideCaret = true;
+            this.fastColoredTextBox2.WordWrap = true;
             this.fastColoredTextBox2.Zoom = 100;
+            this.fastColoredTextBox2.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox2_TextChanged);
             // 
             // ruler1
             // 
@@ -503,21 +515,31 @@
         '\"',
         '\'',
         '\''};
-            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.fastColoredTextBox1.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n";
+            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(0, 14);
             this.fastColoredTextBox1.BackBrush = null;
+            this.fastColoredTextBox1.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
             this.fastColoredTextBox1.CharHeight = 14;
             this.fastColoredTextBox1.CharWidth = 8;
             this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBox1.IsReplaceMode = false;
+            this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS;
+            this.fastColoredTextBox1.LeftBracket = '(';
+            this.fastColoredTextBox1.LeftBracket2 = '{';
             this.fastColoredTextBox1.Location = new System.Drawing.Point(0, 0);
             this.fastColoredTextBox1.Name = "fastColoredTextBox1";
             this.fastColoredTextBox1.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBox1.RightBracket = ')';
+            this.fastColoredTextBox1.RightBracket2 = '}';
             this.fastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fastColoredTextBox1.Size = new System.Drawing.Size(713, 869);
             this.fastColoredTextBox1.TabIndex = 0;
+            this.fastColoredTextBox1.WordWrap = true;
             this.fastColoredTextBox1.Zoom = 100;
+            this.fastColoredTextBox1.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox1_TextChangedDelayed);
             this.fastColoredTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FastColoredTextBox1_KeyDown);
             this.fastColoredTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FastColoredTextBox1_KeyUp);
             // 
@@ -636,6 +658,11 @@
             this.splitter1.TabIndex = 2;
             this.splitter1.TabStop = false;
             // 
+            // tUpdatePopupMenu
+            // 
+            this.tUpdatePopupMenu.Interval = 1000;
+            this.tUpdatePopupMenu.Tick += new System.EventHandler(this.TUpdatePopupMenu_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -723,6 +750,7 @@
         private System.Windows.Forms.RibbonButton ribbonButton12;
         private System.Windows.Forms.RibbonButton ribbonButton19;
         private System.Windows.Forms.RibbonButton ribbonButton20;
+        private System.Windows.Forms.Timer tUpdatePopupMenu;
     }
 }
 

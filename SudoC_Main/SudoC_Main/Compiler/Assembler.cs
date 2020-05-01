@@ -66,6 +66,9 @@ namespace SudoC_Main.Compiler
                     case SudoCInnerCode.fetch:
                         Assembled+=Statics.dContexts[Pair.Args[0]];
                         break;
+                    case SudoCInnerCode.foreachloop:
+                        Assembled += "for(int _"+Pair.Args[1]+" = 0;_"+Pair.Args[1]+" <= "+ Pair.Args[0]+";_" + Pair.Args[1] +"++)\n{\n char "+Pair.Args[1]+ "[2056];\n sprintf("+Pair.Args[1]+", \"%d\", _"+Pair.Args[1]+");\n" + Pair.Args[2]+"\n}\n";
+                        break;
 
                 }
             }
