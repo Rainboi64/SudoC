@@ -72,45 +72,12 @@ namespace SudoC_Studio
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS;
             fastColoredTextBox2.Text = Mold.Replace("SudoC();",string.Empty);
-            tUpdatePopupMenu.Start();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             JsonManager.Serialize(StudioStatics.Settings);
-        }
-        private void TAutoCompiler_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                SudoC_Lexxer easyC_Lexxer = new SudoC_Lexxer();
-                sudoC_Assembler easyC_Assembler = new sudoC_Assembler();
-                Statics.reset();
-                fastColoredTextBox2.Text =Mold.Replace("SudoC();",easyC_Assembler.Assemble(easyC_Lexxer.Lex(fastColoredTextBox1.Text)));
-                tslStatus.Text = ("Finished!");
-            }
-            catch (Exception ex)
-            {
-                tslStatus.Text = ex.Message;
-            }
-        }
-
-        private void FastColoredTextBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            tAutoCompiler.Start();
-            tslStatus.Text=("Compiling...");
-        }
-
-        private void FastColoredTextBox1_KeyUp(object sender, KeyEventArgs e)
-        {
-            tAutoCompiler.Stop();
-        }
-
-        private void SplitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void RibbonButton1_Click(object sender, EventArgs e)
@@ -127,7 +94,6 @@ namespace SudoC_Studio
 
         private void RibbonCheckBox2_CheckBoxCheckChanged(object sender, EventArgs e)
         {
-          
            ribbon1.Minimized = ribbonCheckBox2.Checked;
            StudioStatics.Settings.bHideRibbon = ribbonCheckBox2.Checked;
         }
@@ -147,7 +113,7 @@ namespace SudoC_Studio
         private void RibbonButton17_Click(object sender, EventArgs e)
         {
             fastColoredTextBox1.CollapseBlock(fastColoredTextBox1.Selection.Start.iLine,
-               fastColoredTextBox1.Selection.End.iLine);
+            fastColoredTextBox1.Selection.End.iLine);
         }
 
         private void RibbonButton14_Click(object sender, EventArgs e)
@@ -163,7 +129,6 @@ namespace SudoC_Studio
         private void RibbonButton16_Click(object sender, EventArgs e)
         {
             fastColoredTextBox1.Paste();
-
         }
 
         private void RibbonButton18_Click(object sender, EventArgs e)
@@ -224,7 +189,6 @@ namespace SudoC_Studio
             {
                 filename = openFileDialog.FileName;
                 fastColoredTextBox1.Text = File.ReadAllText(filename);
-                tAutoCompiler.Start();
             }
         }
 
@@ -285,14 +249,6 @@ namespace SudoC_Studio
             
         }
 
-        private void FastColoredTextBox2_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
-        {
-        }
-
-        private void TUpdatePopupMenu_Tick(object sender, EventArgs e)
-        {
-            BuildAutocompleteMenu();
-        }
 
         private void FastColoredTextBox1_TextChangedDelayed(object sender, TextChangedEventArgs e)
         {
@@ -319,6 +275,19 @@ namespace SudoC_Studio
             Names += @")\b";
             fastColoredTextBox1.Range.SetStyle(NamesNameStyle, Names, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
+            try
+            {
+            BuildAutocompleteMenu();
+                SudoC_Lexxer easyC_Lexxer = new SudoC_Lexxer();
+                sudoC_Assembler easyC_Assembler = new sudoC_Assembler();
+                Statics.reset();
+                fastColoredTextBox2.Text = Mold.Replace("SudoC();", easyC_Assembler.Assemble(easyC_Lexxer.Lex(fastColoredTextBox1.Text)));
+                tslStatus.Text = ("Finished!");
+            }
+            catch (Exception ex)
+            {
+                tslStatus.Text = ex.Message;
+            }
         }
     }
 }

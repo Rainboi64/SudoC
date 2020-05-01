@@ -76,10 +76,8 @@
             this.documentMap2 = new FastColoredTextBoxNS.DocumentMap();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tslStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tAutoCompiler = new System.Windows.Forms.Timer(this.components);
             this.ribbonCheckBox1 = new System.Windows.Forms.RibbonCheckBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.tUpdatePopupMenu = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -488,7 +486,6 @@
             this.fastColoredTextBox2.WideCaret = true;
             this.fastColoredTextBox2.WordWrap = true;
             this.fastColoredTextBox2.Zoom = 100;
-            this.fastColoredTextBox2.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox2_TextChanged);
             // 
             // ruler1
             // 
@@ -540,8 +537,6 @@
             this.fastColoredTextBox1.WordWrap = true;
             this.fastColoredTextBox1.Zoom = 100;
             this.fastColoredTextBox1.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox1_TextChangedDelayed);
-            this.fastColoredTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FastColoredTextBox1_KeyDown);
-            this.fastColoredTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FastColoredTextBox1_KeyUp);
             // 
             // splitContainer1
             // 
@@ -553,7 +548,6 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel1.Controls.Add(this.ruler1);
-            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer1_Panel1_Paint);
             // 
             // splitContainer1.Panel2
             // 
@@ -636,11 +630,6 @@
             this.tslStatus.Size = new System.Drawing.Size(37, 17);
             this.tslStatus.Text = "Clear!";
             // 
-            // tAutoCompiler
-            // 
-            this.tAutoCompiler.Interval = 1;
-            this.tAutoCompiler.Tick += new System.EventHandler(this.TAutoCompiler_Tick);
-            // 
             // ribbonCheckBox1
             // 
             this.ribbonCheckBox1.Name = "ribbonCheckBox1";
@@ -657,11 +646,6 @@
             this.splitter1.Size = new System.Drawing.Size(1534, 1);
             this.splitter1.TabIndex = 2;
             this.splitter1.TabStop = false;
-            // 
-            // tUpdatePopupMenu
-            // 
-            this.tUpdatePopupMenu.Interval = 1000;
-            this.tUpdatePopupMenu.Tick += new System.EventHandler(this.TUpdatePopupMenu_Tick);
             // 
             // Form1
             // 
@@ -706,7 +690,6 @@
         private FastColoredTextBoxNS.Ruler ruler2;
         private FastColoredTextBoxNS.Ruler ruler1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Timer tAutoCompiler;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tslStatus;
         private System.Windows.Forms.RibbonOrbMenuItem ribbonOrbMenuItem1;
@@ -750,7 +733,6 @@
         private System.Windows.Forms.RibbonButton ribbonButton12;
         private System.Windows.Forms.RibbonButton ribbonButton19;
         private System.Windows.Forms.RibbonButton ribbonButton20;
-        private System.Windows.Forms.Timer tUpdatePopupMenu;
     }
 }
 
