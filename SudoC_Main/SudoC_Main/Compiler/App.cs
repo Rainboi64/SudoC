@@ -15,21 +15,12 @@ namespace SudoC_Main.Compiler
 
             if (!args[0].EndsWith(".sudoc")) args[0] += ".sudoc";
             SudoC_Lexxer easyC_Lexxer = new SudoC_Lexxer();
-            sudoC_Assembler easyC_Assembler = new sudoC_Assembler();
+            SudoC_Assembler easyC_Assembler = new SudoC_Assembler();
             string sMold = string.Empty;
-            try
-            {
-                sMold = File.ReadAllText("./mold.c");
-                Console.WriteLine("Mold loaded..." + " @ " + DateTime.Now);
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("Couldn't Locate Mold, Will Generate code without mold.... " + " @ " + DateTime.Now);
-            }
 
 
             Console.WriteLine("Generating C Code..... " + " @ " + DateTime.Now);
-            File.WriteAllText(".\\Output.c", sMold.Replace("SudoC();", easyC_Assembler.Assemble(easyC_Lexxer.Lex(File.ReadAllText(args[0])))));
+            File.WriteAllText(".\\Output.c", easyC_Assembler.Assemble(easyC_Lexxer.Lex(File.ReadAllText(args[0]))));
 
 
             Console.WriteLine("Finished SudoC Assembler " + Statics.fVersionNumber + " @ " + DateTime.Now);

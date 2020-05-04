@@ -34,14 +34,17 @@ namespace SudoC_Main.Compiler
                 sBuilder += Char;
 
 
-                //if (sBuilder.EndsWith(";") && iTaskIndex ==  0)
-                //{
-                //    foreach ()
-                //    {
+                if (sBuilder.EndsWith(";") && iTaskIndex == 0)
+                {
+                    string[] Arguments = sBuilder.Split('=');
+                    Arguments[0] = Arguments[0].TrimStart(new char[] { '\n',')', ';', '}', ' ', });
+                    Arguments[0] = Arguments[0].TrimEnd(new char[] { '\r', ' '});
+                    Arguments[1] = Arguments[1].TrimEnd(new char[] { '\r', ' ',';' });
+                    
+                    Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.equalize,Arguments));
 
-                //    }
-                //    sBuilder = "";
-                //}
+                    sBuilder = "";
+                }
 
                 if ((sBuilder.Contains("</") && iTaskIndex == 0) || iTaskIndex == 1)
                 {
@@ -176,8 +179,10 @@ namespace SudoC_Main.Compiler
                         sCompleteName = sCompleteName.TrimEnd('\r','\n','{');
                         //     sConstructor.Replace(@"\;", ";");
                         var sudoc_lexxerSecondary = new SudoC_Lexxer();
-                        var soduc_assemblerSecondary = new sudoC_Assembler();
-                        Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.context, new string[2] { soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(sConstructor)), sCompleteName }));
+                        var soduc_assemblerSecondary = new SudoC_Assembler();
+                        sConstructor = soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(sConstructor), true);
+                        Statics.dContexts.Add(sCompleteName, sConstructor);
+                        Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.context, new string[2] {sConstructor, sCompleteName }));
 
                         bCaptureValue = false;
                         bCaptureSpaces = false;
@@ -241,8 +246,8 @@ namespace SudoC_Main.Compiler
                         sConstructor = sConstructor.TrimStart(new char[] { ')', ';', '}' });
                         bInScope = false;
                         var sudoc_lexxerSecondary = new SudoC_Lexxer();
-                        var soduc_assemblerSecondary = new sudoC_Assembler();
-                        soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(File.ReadAllText(sConstructor)));
+                        var soduc_assemblerSecondary = new SudoC_Assembler();
+                        soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(File.ReadAllText(sConstructor)), true);
                         sConstructor = string.Empty;
                         sBuilder = string.Empty;
                         iTaskIndex = 0;
@@ -338,6 +343,28 @@ namespace SudoC_Main.Compiler
                     }
                   
                     goto cycleEnd;
+                }
+                if ((sBuilder.Contains("use") && iTaskIndex == 0) || iTaskIndex == 10)
+                {
+                    iTaskIndex = 10;
+                    if (Char == ')')
+                    {
+                        bInScope = false;
+                        Statics.AddImports(sConstructor);
+                        sConstructor = string.Empty;
+                        sBuilder = string.Empty;
+                        iTaskIndex = 0;
+                    }
+
+                    if (bInScope)
+                    {
+                        sConstructor += Char;
+                    }
+
+                    if (Char == '(')
+                    {
+                        bInScope = true;
+                    }
                 }
             cycleEnd:;
             }

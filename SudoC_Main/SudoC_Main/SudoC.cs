@@ -20,14 +20,23 @@ namespace SudoC_Main
 
     public class Statics
     {
-        public static List<string> dVars = new List<string>();
+        public static List<string> lVars = new List<string>();
+        public static List<string> lImports = new List<string>();
         public static Dictionary<string, string> dDefines = new Dictionary<string, string>();
         public static Dictionary<string, string> dContexts = new Dictionary<string, string>();
         public static int iStringNameCounter = 0;
         public static float fVersionNumber = 0.01f;
+        public static void AddImports(string ImportName)
+        {
+            if (!lImports.Contains(ImportName))
+            {
+                lImports.Add(ImportName);
+            }
+        }
         public static void reset()
         {
-            dVars.Clear();
+            lVars.Clear();
+            lImports.Clear();
             dDefines.Clear();
             dContexts.Clear();
             iStringNameCounter = 0;

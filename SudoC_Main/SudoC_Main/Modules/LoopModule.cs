@@ -48,22 +48,22 @@ namespace SudoC_Main.Modules
             }
             if (bDoInput)
             {
-                if (!Statics.dVars.Contains(sVarName))
+                if (!Statics.lVars.Contains(sVarName))
                 {
                     Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.vstring, new string[2] { sVarName, string.Empty }));
                     Statics.iStringNameCounter++;
                 }
                 Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.scan, new string[1] { sVarName }));
-                Statics.dVars.Add(sVarName);
+                Statics.lVars.Add(sVarName);
                 var sudoc_lexxerSecondary = new SudoC_Lexxer();
-                var soduc_assemblerSecondary = new sudoC_Assembler();
-                Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.foreachloop, new string[3] { sVarName, sCompleteName, soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(sConstructor)) }));
+                var soduc_assemblerSecondary = new SudoC_Assembler();
+                Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.foreachloop, new string[3] { sVarName, sCompleteName, soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(sConstructor),true) }));
             }
             else
             {
             var sudoc_lexxerSecondary = new SudoC_Lexxer();
-            var soduc_assemblerSecondary = new sudoC_Assembler();
-            Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.foreachloop, new string[3] { sRepeater, sCompleteName, soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(sConstructor)) }));
+            var soduc_assemblerSecondary = new SudoC_Assembler();
+            Lexxed_Code.Add(new SudoC_Pair(SudoCInnerCode.foreachloop, new string[3] { sRepeater, sCompleteName, soduc_assemblerSecondary.Assemble(sudoc_lexxerSecondary.Lex(sConstructor),true) }));
             }
             return Lexxed_Code.ToArray();
         }

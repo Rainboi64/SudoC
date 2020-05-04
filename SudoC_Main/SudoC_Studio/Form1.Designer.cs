@@ -65,20 +65,38 @@
             this.ribbonButton12 = new System.Windows.Forms.RibbonButton();
             this.ribbonButton19 = new System.Windows.Forms.RibbonButton();
             this.ribbonButton20 = new System.Windows.Forms.RibbonButton();
-            this.ruler2 = new FastColoredTextBoxNS.Ruler();
-            this.fastColoredTextBox2 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.ruler1 = new FastColoredTextBoxNS.Ruler();
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.documentMap1 = new FastColoredTextBoxNS.DocumentMap();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.fastColoredTextBox2 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.documentMap2 = new FastColoredTextBoxNS.DocumentMap();
+            this.ruler2 = new FastColoredTextBoxNS.Ruler();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.fastColoredTextBox4 = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.fastColoredTextBox3 = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.fastColoredTextBox5 = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.currentMemoryUsageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tslStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.memoryViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ribbonCheckBox1 = new System.Windows.Forms.RibbonCheckBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox2)).BeginInit();
+            this.tMemStat = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -92,7 +110,24 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox2)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
+            this.splitContainer5.Panel2.SuspendLayout();
+            this.splitContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox4)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox3)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox5)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon1
@@ -124,7 +159,7 @@
             // 
             this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonUpDown1);
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-            this.ribbon1.Size = new System.Drawing.Size(1534, 125);
+            this.ribbon1.Size = new System.Drawing.Size(1663, 125);
             this.ribbon1.TabIndex = 0;
             this.ribbon1.Tabs.Add(this.ribbonTab1);
             this.ribbon1.TabsMargin = new System.Windows.Forms.Padding(5, 2, 20, 0);
@@ -434,59 +469,6 @@
             this.ribbonButton20.Text = "Save";
             this.ribbonButton20.Click += new System.EventHandler(this.RibbonButton20_Click);
             // 
-            // ruler2
-            // 
-            this.ruler2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ruler2.Location = new System.Drawing.Point(0, 0);
-            this.ruler2.MaximumSize = new System.Drawing.Size(1073741824, 24);
-            this.ruler2.MinimumSize = new System.Drawing.Size(0, 24);
-            this.ruler2.Name = "ruler2";
-            this.ruler2.Size = new System.Drawing.Size(634, 24);
-            this.ruler2.TabIndex = 0;
-            this.ruler2.Target = this.fastColoredTextBox2;
-            // 
-            // fastColoredTextBox2
-            // 
-            this.fastColoredTextBox2.AutoCompleteBrackets = true;
-            this.fastColoredTextBox2.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.fastColoredTextBox2.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n^\\s*(case|default)\\s*[^:]" +
-    "*(?<range>:)\\s*(?<range>[^;]+);\r\n";
-            this.fastColoredTextBox2.AutoScrollMinSize = new System.Drawing.Size(0, 14);
-            this.fastColoredTextBox2.BackBrush = null;
-            this.fastColoredTextBox2.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
-            this.fastColoredTextBox2.CharHeight = 14;
-            this.fastColoredTextBox2.CharWidth = 8;
-            this.fastColoredTextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.fastColoredTextBox2.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fastColoredTextBox2.IsReplaceMode = false;
-            this.fastColoredTextBox2.Language = FastColoredTextBoxNS.Language.CSharp;
-            this.fastColoredTextBox2.LeftBracket = '(';
-            this.fastColoredTextBox2.LeftBracket2 = '{';
-            this.fastColoredTextBox2.Location = new System.Drawing.Point(0, 0);
-            this.fastColoredTextBox2.Name = "fastColoredTextBox2";
-            this.fastColoredTextBox2.Paddings = new System.Windows.Forms.Padding(0);
-            this.fastColoredTextBox2.ReadOnly = true;
-            this.fastColoredTextBox2.RightBracket = ')';
-            this.fastColoredTextBox2.RightBracket2 = '}';
-            this.fastColoredTextBox2.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fastColoredTextBox2.Size = new System.Drawing.Size(505, 847);
-            this.fastColoredTextBox2.TabIndex = 5;
-            this.fastColoredTextBox2.VirtualSpace = true;
-            this.fastColoredTextBox2.WideCaret = true;
-            this.fastColoredTextBox2.WordWrap = true;
-            this.fastColoredTextBox2.Zoom = 100;
-            // 
             // ruler1
             // 
             this.ruler1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -494,7 +476,7 @@
             this.ruler1.MaximumSize = new System.Drawing.Size(1073741824, 24);
             this.ruler1.MinimumSize = new System.Drawing.Size(0, 24);
             this.ruler1.Name = "ruler1";
-            this.ruler1.Size = new System.Drawing.Size(896, 24);
+            this.ruler1.Size = new System.Drawing.Size(970, 24);
             this.ruler1.TabIndex = 1;
             this.ruler1.Target = this.fastColoredTextBox1;
             // 
@@ -532,7 +514,8 @@
             this.fastColoredTextBox1.RightBracket = ')';
             this.fastColoredTextBox1.RightBracket2 = '}';
             this.fastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fastColoredTextBox1.Size = new System.Drawing.Size(713, 869);
+            this.fastColoredTextBox1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox1.ServiceColors")));
+            this.fastColoredTextBox1.Size = new System.Drawing.Size(771, 804);
             this.fastColoredTextBox1.TabIndex = 0;
             this.fastColoredTextBox1.WordWrap = true;
             this.fastColoredTextBox1.Zoom = 100;
@@ -553,9 +536,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Panel2.Controls.Add(this.ruler2);
-            this.splitContainer1.Size = new System.Drawing.Size(1534, 893);
-            this.splitContainer1.SplitterDistance = 896;
+            this.splitContainer1.Size = new System.Drawing.Size(1663, 828);
+            this.splitContainer1.SplitterDistance = 970;
             this.splitContainer1.TabIndex = 1;
             // 
             // splitContainer2
@@ -571,8 +553,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.documentMap1);
-            this.splitContainer2.Size = new System.Drawing.Size(896, 869);
-            this.splitContainer2.SplitterDistance = 713;
+            this.splitContainer2.Size = new System.Drawing.Size(970, 804);
+            this.splitContainer2.SplitterDistance = 771;
             this.splitContainer2.TabIndex = 2;
             // 
             // documentMap1
@@ -581,7 +563,7 @@
             this.documentMap1.ForeColor = System.Drawing.Color.Maroon;
             this.documentMap1.Location = new System.Drawing.Point(0, 0);
             this.documentMap1.Name = "documentMap1";
-            this.documentMap1.Size = new System.Drawing.Size(179, 869);
+            this.documentMap1.Size = new System.Drawing.Size(195, 804);
             this.documentMap1.TabIndex = 0;
             this.documentMap1.Target = this.fastColoredTextBox1;
             this.documentMap1.Text = "documentMap1";
@@ -589,19 +571,81 @@
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
             this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.fastColoredTextBox2);
+            this.splitContainer3.Panel1.Controls.Add(this.splitContainer4);
+            this.splitContainer3.Panel1.Controls.Add(this.ruler2);
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.documentMap2);
-            this.splitContainer3.Size = new System.Drawing.Size(634, 847);
-            this.splitContainer3.SplitterDistance = 505;
+            this.splitContainer3.Panel2.Controls.Add(this.tabControl1);
+            this.splitContainer3.Size = new System.Drawing.Size(689, 806);
+            this.splitContainer3.SplitterDistance = 489;
             this.splitContainer3.TabIndex = 4;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.fastColoredTextBox2);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.documentMap2);
+            this.splitContainer4.Size = new System.Drawing.Size(689, 465);
+            this.splitContainer4.SplitterDistance = 548;
+            this.splitContainer4.TabIndex = 6;
+            // 
+            // fastColoredTextBox2
+            // 
+            this.fastColoredTextBox2.AutoCompleteBrackets = true;
+            this.fastColoredTextBox2.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBox2.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n^\\s*(case|default)\\s*[^:]" +
+    "*(?<range>:)\\s*(?<range>[^;]+);\r\n";
+            this.fastColoredTextBox2.AutoScrollMinSize = new System.Drawing.Size(0, 14);
+            this.fastColoredTextBox2.BackBrush = null;
+            this.fastColoredTextBox2.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
+            this.fastColoredTextBox2.CharHeight = 14;
+            this.fastColoredTextBox2.CharWidth = 8;
+            this.fastColoredTextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBox2.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox2.IsReplaceMode = false;
+            this.fastColoredTextBox2.Language = FastColoredTextBoxNS.Language.CSharp;
+            this.fastColoredTextBox2.LeftBracket = '(';
+            this.fastColoredTextBox2.LeftBracket2 = '{';
+            this.fastColoredTextBox2.Location = new System.Drawing.Point(0, 0);
+            this.fastColoredTextBox2.Name = "fastColoredTextBox2";
+            this.fastColoredTextBox2.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBox2.ReadOnly = true;
+            this.fastColoredTextBox2.RightBracket = ')';
+            this.fastColoredTextBox2.RightBracket2 = '}';
+            this.fastColoredTextBox2.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBox2.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox2.ServiceColors")));
+            this.fastColoredTextBox2.Size = new System.Drawing.Size(548, 465);
+            this.fastColoredTextBox2.TabIndex = 5;
+            this.fastColoredTextBox2.VirtualSpace = true;
+            this.fastColoredTextBox2.WideCaret = true;
+            this.fastColoredTextBox2.WordWrap = true;
+            this.fastColoredTextBox2.Zoom = 100;
             // 
             // documentMap2
             // 
@@ -609,18 +653,231 @@
             this.documentMap2.ForeColor = System.Drawing.Color.Maroon;
             this.documentMap2.Location = new System.Drawing.Point(0, 0);
             this.documentMap2.Name = "documentMap2";
-            this.documentMap2.Size = new System.Drawing.Size(125, 847);
+            this.documentMap2.Size = new System.Drawing.Size(137, 465);
             this.documentMap2.TabIndex = 0;
             this.documentMap2.Target = this.fastColoredTextBox2;
             this.documentMap2.Text = "documentMap2";
             // 
+            // ruler2
+            // 
+            this.ruler2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ruler2.Location = new System.Drawing.Point(0, 0);
+            this.ruler2.MaximumSize = new System.Drawing.Size(1073741824, 24);
+            this.ruler2.MinimumSize = new System.Drawing.Size(0, 24);
+            this.ruler2.Name = "ruler2";
+            this.ruler2.Size = new System.Drawing.Size(689, 24);
+            this.ruler2.TabIndex = 5;
+            this.ruler2.Target = this.fastColoredTextBox2;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(689, 313);
+            this.tabControl1.TabIndex = 8;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.splitContainer5);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(681, 287);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Normal View";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer5
+            // 
+            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer5.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer5.Name = "splitContainer5";
+            // 
+            // splitContainer5.Panel2
+            // 
+            this.splitContainer5.Panel2.Controls.Add(this.fastColoredTextBox4);
+            this.splitContainer5.Panel2.Controls.Add(this.menuStrip2);
+            this.splitContainer5.Size = new System.Drawing.Size(675, 281);
+            this.splitContainer5.SplitterDistance = 223;
+            this.splitContainer5.TabIndex = 0;
+            // 
+            // fastColoredTextBox4
+            // 
+            this.fastColoredTextBox4.AutoCompleteBrackets = true;
+            this.fastColoredTextBox4.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBox4.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n";
+            this.fastColoredTextBox4.AutoScrollMinSize = new System.Drawing.Size(0, 14);
+            this.fastColoredTextBox4.BackBrush = null;
+            this.fastColoredTextBox4.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
+            this.fastColoredTextBox4.CharHeight = 14;
+            this.fastColoredTextBox4.CharWidth = 8;
+            this.fastColoredTextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBox4.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox4.IsReplaceMode = false;
+            this.fastColoredTextBox4.Language = FastColoredTextBoxNS.Language.JS;
+            this.fastColoredTextBox4.LeftBracket = '(';
+            this.fastColoredTextBox4.LeftBracket2 = '{';
+            this.fastColoredTextBox4.Location = new System.Drawing.Point(0, 24);
+            this.fastColoredTextBox4.Name = "fastColoredTextBox4";
+            this.fastColoredTextBox4.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBox4.RightBracket = ')';
+            this.fastColoredTextBox4.RightBracket2 = '}';
+            this.fastColoredTextBox4.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBox4.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox4.ServiceColors")));
+            this.fastColoredTextBox4.Size = new System.Drawing.Size(448, 257);
+            this.fastColoredTextBox4.TabIndex = 1;
+            this.fastColoredTextBox4.WordWrap = true;
+            this.fastColoredTextBox4.Zoom = 100;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.fastColoredTextBox3);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(681, 287);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Code View";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // fastColoredTextBox3
+            // 
+            this.fastColoredTextBox3.AutoCompleteBrackets = true;
+            this.fastColoredTextBox3.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBox3.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n";
+            this.fastColoredTextBox3.AutoScrollMinSize = new System.Drawing.Size(0, 14);
+            this.fastColoredTextBox3.BackBrush = null;
+            this.fastColoredTextBox3.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
+            this.fastColoredTextBox3.CharHeight = 14;
+            this.fastColoredTextBox3.CharWidth = 8;
+            this.fastColoredTextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBox3.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox3.IsReplaceMode = false;
+            this.fastColoredTextBox3.Language = FastColoredTextBoxNS.Language.JS;
+            this.fastColoredTextBox3.LeftBracket = '(';
+            this.fastColoredTextBox3.LeftBracket2 = '{';
+            this.fastColoredTextBox3.Location = new System.Drawing.Point(3, 3);
+            this.fastColoredTextBox3.Name = "fastColoredTextBox3";
+            this.fastColoredTextBox3.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBox3.ReadOnly = true;
+            this.fastColoredTextBox3.RightBracket = ')';
+            this.fastColoredTextBox3.RightBracket2 = '}';
+            this.fastColoredTextBox3.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBox3.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox3.ServiceColors")));
+            this.fastColoredTextBox3.Size = new System.Drawing.Size(675, 281);
+            this.fastColoredTextBox3.TabIndex = 7;
+            this.fastColoredTextBox3.VirtualSpace = true;
+            this.fastColoredTextBox3.WideCaret = true;
+            this.fastColoredTextBox3.WordWrap = true;
+            this.fastColoredTextBox3.Zoom = 100;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.fastColoredTextBox5);
+            this.tabPage3.Controls.Add(this.menuStrip1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(681, 287);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Compiler Stats:";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // fastColoredTextBox5
+            // 
+            this.fastColoredTextBox5.AutoCompleteBrackets = true;
+            this.fastColoredTextBox5.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBox5.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;]+);\r\n^\\s*(case|default)\\s*[^:]" +
+    "*(?<range>:)\\s*(?<range>[^;]+);\r\n";
+            this.fastColoredTextBox5.AutoScrollMinSize = new System.Drawing.Size(0, 14);
+            this.fastColoredTextBox5.BackBrush = null;
+            this.fastColoredTextBox5.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
+            this.fastColoredTextBox5.CharHeight = 14;
+            this.fastColoredTextBox5.CharWidth = 8;
+            this.fastColoredTextBox5.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBox5.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox5.IsReplaceMode = false;
+            this.fastColoredTextBox5.Language = FastColoredTextBoxNS.Language.CSharp;
+            this.fastColoredTextBox5.LeftBracket = '(';
+            this.fastColoredTextBox5.LeftBracket2 = '{';
+            this.fastColoredTextBox5.Location = new System.Drawing.Point(3, 27);
+            this.fastColoredTextBox5.Name = "fastColoredTextBox5";
+            this.fastColoredTextBox5.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBox5.ReadOnly = true;
+            this.fastColoredTextBox5.RightBracket = ')';
+            this.fastColoredTextBox5.RightBracket2 = '}';
+            this.fastColoredTextBox5.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBox5.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox5.ServiceColors")));
+            this.fastColoredTextBox5.Size = new System.Drawing.Size(675, 257);
+            this.fastColoredTextBox5.TabIndex = 6;
+            this.fastColoredTextBox5.VirtualSpace = true;
+            this.fastColoredTextBox5.WideCaret = true;
+            this.fastColoredTextBox5.WordWrap = true;
+            this.fastColoredTextBox5.Zoom = 100;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.currentMemoryUsageToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(675, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // currentMemoryUsageToolStripMenuItem
+            // 
+            this.currentMemoryUsageToolStripMenuItem.Enabled = false;
+            this.currentMemoryUsageToolStripMenuItem.Name = "currentMemoryUsageToolStripMenuItem";
+            this.currentMemoryUsageToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
+            this.currentMemoryUsageToolStripMenuItem.Text = "Current Memory Usage : 0";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tslStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 871);
+            this.tslStatus,
+            this.toolStripDropDownButton1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 806);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(634, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(689, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -629,6 +886,47 @@
             this.tslStatus.Name = "tslStatus";
             this.tslStatus.Size = new System.Drawing.Size(37, 17);
             this.tslStatus.Text = "Clear!";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.memoryViewToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
+            this.toolStripDropDownButton1.Text = "Throw";
+            this.toolStripDropDownButton1.Click += new System.EventHandler(this.ToolStripDropDownButton1_Click);
+            // 
+            // memoryViewToolStripMenuItem
+            // 
+            this.memoryViewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.submitToolStripMenuItem,
+            this.hideToolStripMenuItem,
+            this.saveToolStripMenuItem});
+            this.memoryViewToolStripMenuItem.Name = "memoryViewToolStripMenuItem";
+            this.memoryViewToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.memoryViewToolStripMenuItem.Text = "Memory View";
+            // 
+            // submitToolStripMenuItem
+            // 
+            this.submitToolStripMenuItem.Name = "submitToolStripMenuItem";
+            this.submitToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.submitToolStripMenuItem.Text = "Submit";
+            // 
+            // hideToolStripMenuItem
+            // 
+            this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.hideToolStripMenuItem.Text = "Hide";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.saveToolStripMenuItem.Text = "Save .Json";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // ribbonCheckBox1
             // 
@@ -643,26 +941,47 @@
             this.splitter1.MinExtra = 10;
             this.splitter1.MinSize = 10;
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(1534, 1);
+            this.splitter1.Size = new System.Drawing.Size(1663, 1);
             this.splitter1.TabIndex = 2;
             this.splitter1.TabStop = false;
+            // 
+            // tMemStat
+            // 
+            this.tMemStat.Tick += new System.EventHandler(this.TMemStat_Tick);
+            // 
+            // menuStrip2
+            // 
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noneToolStripMenuItem});
+            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Size = new System.Drawing.Size(448, 24);
+            this.menuStrip2.TabIndex = 2;
+            this.menuStrip2.Text = "menuStrip2";
+            // 
+            // noneToolStripMenuItem
+            // 
+            this.noneToolStripMenuItem.Enabled = false;
+            this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
+            this.noneToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.noneToolStripMenuItem.Text = "None";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1534, 1018);
+            this.ClientSize = new System.Drawing.Size(1663, 953);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.ribbon1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "SudoC Studio";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -677,8 +996,29 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox2)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.splitContainer5.Panel2.ResumeLayout(false);
+            this.splitContainer5.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
+            this.splitContainer5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox4)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox3)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox5)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -687,7 +1027,6 @@
 
         private System.Windows.Forms.Ribbon ribbon1;
         private System.Windows.Forms.RibbonTab ribbonTab1;
-        private FastColoredTextBoxNS.Ruler ruler2;
         private FastColoredTextBoxNS.Ruler ruler1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -700,9 +1039,6 @@
         private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private FastColoredTextBoxNS.DocumentMap documentMap1;
-        private System.Windows.Forms.SplitContainer splitContainer3;
-        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox2;
-        private FastColoredTextBoxNS.DocumentMap documentMap2;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.RibbonPanel RibbonPanel1;
         private System.Windows.Forms.RibbonButton ribbonButton1;
@@ -733,6 +1069,29 @@
         private System.Windows.Forms.RibbonButton ribbonButton12;
         private System.Windows.Forms.RibbonButton ribbonButton19;
         private System.Windows.Forms.RibbonButton ribbonButton20;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox2;
+        private FastColoredTextBoxNS.DocumentMap documentMap2;
+        private FastColoredTextBoxNS.Ruler ruler2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.SplitContainer splitContainer5;
+        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox4;
+        private System.Windows.Forms.TabPage tabPage2;
+        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox3;
+        private System.Windows.Forms.ToolStripMenuItem memoryViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem submitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage3;
+        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox5;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem currentMemoryUsageToolStripMenuItem;
+        private System.Windows.Forms.Timer tMemStat;
+        private System.Windows.Forms.MenuStrip menuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
     }
 }
 

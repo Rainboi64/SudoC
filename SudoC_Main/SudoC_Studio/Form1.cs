@@ -1,4 +1,7 @@
-﻿using FastColoredTextBoxNS;
+﻿using Alex75.JsonViewer.WindowsForm;
+using FastColoredTextBoxNS;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SudoC_Main;
 using SudoC_Main.Compiler;
 using System;
@@ -26,14 +29,18 @@ namespace SudoC_Studio
 
         string[] keywords = { "var = ;"};
         string[] methods = { "fetch()","input<>","print()"};
-        string[] snippets = { "if(^)\n{\n;\n}", "if(^)\n{\n;\n}\nelse\n{\n;\n}", "for(^;;)\n{\n;\n}", "while(^)\n{\n;\n}", "do${\n^;\n}while();", "switch(^)\n{\ncase : break;\n}" };
+        string[] snippets = { "if(^)\n{\n;\n}", "if(^)\n{\n;\n}\nelse\n{\n;\n}", "for(^;;)\n{\n;\n}", "while(^)\n{\n;\n}", "do${\n^;\n}while();", "switch(^)\n{\n\n}" ,"repeat(^) "+ "Input" + Statics.iStringNameCounter + "\n{\n\n}"};
         string[] declarationSnippets = {
                "context ^\n{\n}"
                };
-        
+        bool bThrow = false;
+        JsonTreeView jsonTreeView = new JsonTreeView();
         public Form1(string InputArg)
         {
             InitializeComponent();
+            jsonTreeView.Dock = DockStyle.Fill;
+            jsonTreeView.NodeMouseClick += JsonTreeView_NodeMouseClick;
+            splitContainer5.Panel1.Controls.Add(jsonTreeView);
             Mold = File.ReadAllText(StudioStatics.Settings.sMold);
             ribbon1.Minimized = StudioStatics.Settings.bHideRibbon;
             ribbonCheckBox2.Checked = StudioStatics.Settings.bHideRibbon;
@@ -46,6 +53,24 @@ namespace SudoC_Studio
             }
             BuildAutocompleteMenu();
         }
+        class Nodes
+        {
+           public string Value = "";
+           public Dictionary<string,string> Children = new Dictionary<string, string>();
+        }
+        private void JsonTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+                Nodes nodes = new Nodes();
+            nodes.Value = e.Node.Text;
+                foreach (TreeNode item in e.Node.Nodes)
+                {
+                    nodes.Children.Add(item.Text.Split(':')[0], item.Text.Split(':')[item.Text.Split(':').Length - 1]);
+                }
+                fastColoredTextBox4.Text = JsonConvert.SerializeObject(nodes, Formatting.Indented);
+            noneToolStripMenuItem.Text = e.Node.Text.Split(':')[0];
+        }
+
         private void BuildAutocompleteMenu()
         {
             popupMenu = new AutocompleteMenu(fastColoredTextBox1);
@@ -72,6 +97,7 @@ namespace SudoC_Studio
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            tMemStat.Start();
             fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS;
             fastColoredTextBox2.Text = Mold.Replace("SudoC();",string.Empty);
         }
@@ -249,6 +275,32 @@ namespace SudoC_Studio
             
         }
 
+        private class LocalStatics
+        {
+            public List<string> lVars = new List<string>();
+            public List<string> lImports = new List<string>();
+            public Dictionary<string, string> dDefines = new Dictionary<string, string>();
+            public Dictionary<string, string> dContexts = new Dictionary<string, string>();
+            public int iStringNameCounter = 0;
+            public float fVersionNumber = 0.01f;
+        }
+
+        private class CompilerStats
+        {
+            public DateTime LexxerStartTime = new DateTime();
+            public DateTime LexxerEndTime = new DateTime();
+            public TimeSpan LexxerTime = new TimeSpan();
+            public DateTime AssemblerStartTime = new DateTime();
+            public DateTime AssemblerEndTime = new DateTime();
+            public TimeSpan AssemblerTime = new TimeSpan();
+        }
+
+        private class CompilerValues
+        {
+            public LocalStatics LocalStatics = new LocalStatics();
+            public SudoC_Lexxer SudoC_Lexxer = new SudoC_Lexxer();
+            public SudoC_Assembler SudoC_Assembler = new SudoC_Assembler();
+        }
 
         private void FastColoredTextBox1_TextChangedDelayed(object sender, TextChangedEventArgs e)
         {
@@ -256,7 +308,7 @@ namespace SudoC_Studio
             fastColoredTextBox1.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
             //highlight keywords of LISP
             fastColoredTextBox1.Range.SetStyle(KeywordsStyle, @"\b(context)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            fastColoredTextBox1.Range.SetStyle(FunctionNameStyle, @"\b(print|fetch|include)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            fastColoredTextBox1.Range.SetStyle(FunctionNameStyle, @"\b(print|fetch|include|repeat)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             var Names = @"\b(";
             foreach (string name in Statics.dContexts.Keys)
             {
@@ -267,27 +319,82 @@ namespace SudoC_Studio
                 Names += name + "|";
             }
 
-            foreach (string name in Statics.dVars)
+            foreach (string name in Statics.lVars)
             {
                 Names += name + "|";
             }
             Names.TrimEnd('|');
             Names += @")\b";
-            fastColoredTextBox1.Range.SetStyle(NamesNameStyle, Names, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-
+            SudoC_Lexxer sudoC_Lexxer = new SudoC_Lexxer();
+            SudoC_Assembler sudoC_Assembler = new SudoC_Assembler();
+            CompilerStats compilerStats = new CompilerStats();
             try
             {
-            BuildAutocompleteMenu();
-                SudoC_Lexxer easyC_Lexxer = new SudoC_Lexxer();
-                sudoC_Assembler easyC_Assembler = new sudoC_Assembler();
-                Statics.reset();
-                fastColoredTextBox2.Text = Mold.Replace("SudoC();", easyC_Assembler.Assemble(easyC_Lexxer.Lex(fastColoredTextBox1.Text)));
-                tslStatus.Text = ("Finished!");
+                 fastColoredTextBox1.Range.SetStyle(NamesNameStyle, Names, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                 Statics.reset();
+                 var CurrentTime0 = DateTime.Now;
+                 var Lexxed = sudoC_Lexxer.Lex(fastColoredTextBox1.Text);
+                 var CurrentTime1 = DateTime.Now;
+
+                 var CurrentTime2 = DateTime.Now;
+                 var Assembled = sudoC_Assembler.Assemble(Lexxed);
+                 var CurrentTime3 = DateTime.Now;
+                 compilerStats.LexxerStartTime = CurrentTime0;
+                 compilerStats.LexxerEndTime = CurrentTime1;
+                 compilerStats.LexxerTime = CurrentTime1.Subtract(CurrentTime0);
+                 compilerStats.AssemblerStartTime = CurrentTime2;
+                 compilerStats.AssemblerEndTime = CurrentTime3;
+                 compilerStats.AssemblerTime = CurrentTime3.Subtract(CurrentTime2);
+
+                 fastColoredTextBox2.Text = Assembled;
+                 
+                 tslStatus.Text = ("Finished!");
+
+
+             BuildAutocompleteMenu();
+
             }
             catch (Exception ex)
             {
                 tslStatus.Text = ex.Message;
+                if (bThrow) throw;
             }
+            var statics = new LocalStatics();
+            statics.fVersionNumber = Statics.fVersionNumber;
+            statics.dContexts = Statics.dContexts;
+            statics.dDefines = Statics.dDefines;
+            statics.lImports = Statics.lImports;
+            statics.lVars = Statics.lVars;
+            statics.iStringNameCounter = Statics.iStringNameCounter;
+            CompilerValues compilerValues = new CompilerValues();
+            compilerValues.LocalStatics = statics;
+            compilerValues.SudoC_Assembler = sudoC_Assembler;
+            compilerValues.SudoC_Lexxer = sudoC_Lexxer;
+            fastColoredTextBox3.Text = JsonConvert.SerializeObject(compilerValues, Formatting.Indented);
+            fastColoredTextBox5.Text = JsonConvert.SerializeObject(compilerStats, Formatting.Indented);
+            jsonTreeView.ShowJson(fastColoredTextBox3.Text); 
+        }
+
+        private void ToolStripDropDownButton1_Click(object sender, EventArgs e)
+        {
+            if (bThrow == true)
+            {
+                bThrow = false;
+            }
+            else
+            {
+                bThrow = true;
+            }
+        }
+
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void TMemStat_Tick(object sender, EventArgs e)
+        {
+            Process thisProc = Process.GetCurrentProcess();
+            currentMemoryUsageToolStripMenuItem.Text = "Memory Usage: "+thisProc.PagedMemorySize64 / 1000000 +"MB";
         }
     }
 }

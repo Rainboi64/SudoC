@@ -30,7 +30,7 @@ namespace SudoC_Main.Modules
             {
                 sudoC_Pairs.Add(new SudoC_Pair(SudoCInnerCode.vstring, new string[2] { input[1], input[0] }));
             }
-            Statics.dVars.Add(input[1]);
+            Statics.lVars.Add(input[1]);
             return sudoC_Pairs.ToArray();
         }
     }
