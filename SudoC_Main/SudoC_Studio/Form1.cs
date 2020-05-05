@@ -21,10 +21,9 @@ namespace SudoC_Studio
     public partial class Form1 : Form
     {
         static string filename = string.Empty;
-        static string Mold = string.Empty;
         AutocompleteMenu popupMenu;
         Style KeywordsStyle = new TextStyle(Brushes.DeepPink, null, FontStyle.Regular);
-        Style FunctionNameStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
+        Style FunctionNameStyle = new TextStyle(Brushes.Teal, null, FontStyle.Regular);
         Style NamesNameStyle = new TextStyle(Brushes.DarkRed, null, FontStyle.Regular);
 
         string[] keywords = { "var = ;"};
@@ -38,14 +37,19 @@ namespace SudoC_Studio
         public Form1(string InputArg)
         {
             InitializeComponent();
+            fastColoredTextBox2.Language = Language.CSharp;
+            popupMenu = new AutocompleteMenu(fastColoredTextBox1);
+            popupMenu.AllowTabKey = true;
             jsonTreeView.Dock = DockStyle.Fill;
+            jsonTreeView.ImageList.TransparentColor = Color.White;
+            jsonTreeView.ImageList.ColorDepth = ColorDepth.Depth32Bit;
+
+            jsonTreeView.BackColor = Color.FromArgb(30, 30, 30);
+            jsonTreeView.BorderStyle = BorderStyle.None;
+            jsonTreeView.ForeColor = Color.FromArgb(250, 250, 250);
             jsonTreeView.NodeMouseClick += JsonTreeView_NodeMouseClick;
             splitContainer5.Panel1.Controls.Add(jsonTreeView);
-            Mold = File.ReadAllText(StudioStatics.Settings.sMold);
-            ribbon1.Minimized = StudioStatics.Settings.bHideRibbon;
-            ribbonCheckBox2.Checked = StudioStatics.Settings.bHideRibbon;
-            splitContainer1.Panel2Collapsed = StudioStatics.Settings.bHideCTab;
-            ribbonCheckBox3.Checked = StudioStatics.Settings.bHideCTab;
+
             if (InputArg != "")
             {
                 fastColoredTextBox1.Text = File.ReadAllText(InputArg);
@@ -73,9 +77,7 @@ namespace SudoC_Studio
 
         private void BuildAutocompleteMenu()
         {
-            popupMenu = new AutocompleteMenu(fastColoredTextBox1);
             List<AutocompleteItem> items = new List<AutocompleteItem>();
-            popupMenu.AllowTabKey = true;
             foreach (var item in snippets)
                 items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
             foreach (var item in declarationSnippets)
@@ -99,102 +101,25 @@ namespace SudoC_Studio
         {
             tMemStat.Start();
             fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS;
-            fastColoredTextBox2.Text = Mold.Replace("SudoC();",string.Empty);
+
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             JsonManager.Serialize(StudioStatics.Settings);
         }
-
-        private void RibbonButton1_Click(object sender, EventArgs e)
-        {
-            fastColoredTextBox1.Zoom += 10;
-            fastColoredTextBox2.Zoom += 10;
-        }
-
-        private void RibbonButton2_Click(object sender, EventArgs e)
-        {
-            fastColoredTextBox1.Zoom -= 10;
-            fastColoredTextBox2.Zoom -= 10;
-        }
-
-        private void RibbonCheckBox2_CheckBoxCheckChanged(object sender, EventArgs e)
-        {
-           ribbon1.Minimized = ribbonCheckBox2.Checked;
-           StudioStatics.Settings.bHideRibbon = ribbonCheckBox2.Checked;
-        }
-
-        private void RibbonCheckBox3_Click(object sender, EventArgs e)
-        {
-            splitContainer1.Panel2Collapsed = ribbonCheckBox3.Checked;
-            StudioStatics.Settings.bHideCTab = ribbonCheckBox3.Checked;
-        }
-
-        private void RibbonButton3_Click(object sender, EventArgs e)
-        {
-            fastColoredTextBox1.Zoom = 100;
-            fastColoredTextBox2.Zoom = 100;
-        }
-
-        private void RibbonButton17_Click(object sender, EventArgs e)
-        {
-            fastColoredTextBox1.CollapseBlock(fastColoredTextBox1.Selection.Start.iLine,
-            fastColoredTextBox1.Selection.End.iLine);
-        }
-
-        private void RibbonButton14_Click(object sender, EventArgs e)
-        {
-            fastColoredTextBox1.Copy();
-        }
-
-        private void RibbonButton15_Click(object sender, EventArgs e)
-        {
-            fastColoredTextBox1.Cut();
-        }
-
-        private void RibbonButton16_Click(object sender, EventArgs e)
-        {
-            fastColoredTextBox1.Paste();
-        }
-
-        private void RibbonButton18_Click(object sender, EventArgs e)
-        {
-            fastColoredTextBox1.ShowReplaceDialog();
-        }
-
-        private void RibbonButton13_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "C Files (*.c)|*.c|All files (*.*)|*.*";
-           var ofgresult = openFileDialog.ShowDialog();
-            if (ofgresult == DialogResult.OK)
-            {
-                StudioStatics.Settings.sMold = openFileDialog.FileName;
-                Mold = File.ReadAllText(StudioStatics.Settings.sMold); 
-            }
-        }
-
-        private void RibbonButton13_Click_1(object sender, EventArgs e)
-        {
-            StudioStatics.Settings.sMold = @".\Resources\DefaultMold.c";
-            Mold = File.ReadAllText(StudioStatics.Settings.sMold);
-            fastColoredTextBox2.Text = Mold.Replace("SudoC();", string.Empty);
-        }
-
-        private void RibbonButton8_Click(object sender, EventArgs e)
+        private void SaveAs_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "SudoC Files (*.sudoc)|*.sudoc|All files (*.*)|*.*";
            var sfd= saveFileDialog.ShowDialog();
             if (sfd == DialogResult.OK)
             {
-                File.WriteAllText(@".\mold.c", Mold);
                 File.WriteAllText(saveFileDialog.FileName,fastColoredTextBox1.Text);
                 filename = saveFileDialog.FileName;
             }
         }
 
-        private void RibbonButton9_Click(object sender, EventArgs e)
+        private void ExportC_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "C Files (*.c)|*.c|All files (*.*)|*.*";
@@ -206,7 +131,7 @@ namespace SudoC_Studio
             }
         }
 
-        private void RibbonOrbMenuItem1_Click(object sender, EventArgs e)
+        private void OpenButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "SudoC Files (*.sudoc)|*.sudoc|All files (*.*)|*.*";
@@ -218,7 +143,7 @@ namespace SudoC_Studio
             }
         }
 
-        private void RibbonButton20_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             if (filename=="")
             {
@@ -227,7 +152,6 @@ namespace SudoC_Studio
                 var sfd = saveFileDialog.ShowDialog();
                 if (sfd == DialogResult.OK)
                 {
-                    File.WriteAllText(@".\mold.c", Mold);
                     File.WriteAllText(saveFileDialog.FileName, fastColoredTextBox1.Text);
                     filename = saveFileDialog.FileName;
                 }
@@ -237,21 +161,8 @@ namespace SudoC_Studio
                 File.WriteAllText(filename, fastColoredTextBox1.Text);
             }
         }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == (Keys.Control | Keys.S))
-            {
-                ribbonButton20.PerformClick();
-            }
 
-            if (keyData == (Keys.Control | Keys.O))
-            {
-                ribbonButton12.PerformClick();
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void RibbonButton5_Click(object sender, EventArgs e)
+        private void Run_Click(object sender, EventArgs e)
         {
             if (filename == "")
             {
@@ -262,14 +173,12 @@ namespace SudoC_Studio
                 {
                     File.WriteAllText(saveFileDialog.FileName, fastColoredTextBox1.Text);
                     filename = saveFileDialog.FileName;
-                    File.WriteAllText(@".\mold.c", Mold);
                     Process.Start(@".\SudoC_Windows.exe", filename);
                 }
             }
             else
             {
                 File.WriteAllText(filename, fastColoredTextBox1.Text);
-                File.WriteAllText(@".\mold.c",Mold);
                 Process.Start(@".\SudoC_Windows.exe", filename);
             }
             
@@ -308,7 +217,7 @@ namespace SudoC_Studio
             fastColoredTextBox1.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
             //highlight keywords of LISP
             fastColoredTextBox1.Range.SetStyle(KeywordsStyle, @"\b(context)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            fastColoredTextBox1.Range.SetStyle(FunctionNameStyle, @"\b(print|fetch|include|repeat)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            fastColoredTextBox1.Range.SetStyle(FunctionNameStyle, @"\b(print|fetch|include|repeat|def|=|var)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             var Names = @"\b(";
             foreach (string name in Statics.dContexts.Keys)
             {
@@ -348,7 +257,7 @@ namespace SudoC_Studio
 
                  fastColoredTextBox2.Text = Assembled;
                  
-                 tslStatus.Text = ("Finished!");
+                 label1.Text = ("Finished!");
 
 
              BuildAutocompleteMenu();
@@ -356,7 +265,7 @@ namespace SudoC_Studio
             }
             catch (Exception ex)
             {
-                tslStatus.Text = ex.Message;
+                label1.Text = ex.Message;
                 if (bThrow) throw;
             }
             var statics = new LocalStatics();
@@ -396,5 +305,52 @@ namespace SudoC_Studio
             Process thisProc = Process.GetCurrentProcess();
             currentMemoryUsageToolStripMenuItem.Text = "Memory Usage: "+thisProc.PagedMemorySize64 / 1000000 +"MB";
         }
+
+        private void FastColoredTextBox2_TextChangedDelayed(object sender, TextChangedEventArgs e)
+        {
+            //clear styles
+            fastColoredTextBox2.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
+            //highlight keywords of LISP
+            fastColoredTextBox2.Range.SetStyle(KeywordsStyle, @"\b(int|var|char|int)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            fastColoredTextBox2.Range.SetStyle(FunctionNameStyle, @"\b(printf|scanf|#|include|atoi|var|char|int|for|while)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        }
+
+
+        private void SplitContainer3_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = true;
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel2.Visible = true;
+            panel3.Visible = false;
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = true;
+            panel2.Visible = false;
+            panel3.Visible = false;
+        }
+
+        private void FastColoredTextBox2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //clear styles
+            fastColoredTextBox2.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
+            //highlight keywords of LISP
+            fastColoredTextBox2.Range.SetStyle(KeywordsStyle, @"\b(int|var|char|int)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            fastColoredTextBox2.Range.SetStyle(FunctionNameStyle, @"\b(printf|scanf|#|include|atoi|var|char|int|for|while)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        }
     }
-}
+
+    }
+    

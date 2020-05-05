@@ -91,12 +91,12 @@ namespace SudoC_Main.Compiler
                                 Assembled += "int _" + Pair.Args[1] + " = 0;\nwhile(1)\n{\nchar " + Pair.Args[1] + "[2056];\n _"+Pair.Args[1]+"++;\n sprintf(" + Pair.Args[1] + ", \"%d\", _" + Pair.Args[1] + ");\n" + Pair.Args[2] + "\n}\n";
                             }
                             else
-                            Assembled += "for(int _" + Pair.Args[1] + " = 0;_" + Pair.Args[1] + " <= " + Pair.Args[0] + ";_" + Pair.Args[1] + "++)\n{\n char " + Pair.Args[1] + "[2056];\n sprintf(" + Pair.Args[1] + ", \"%d\", _" + Pair.Args[1] + ");\n" + Pair.Args[2] + "\n}\n";
+                            Assembled += "for(int _" + Pair.Args[1] + " = 0;_" + Pair.Args[1] + " < " + Pair.Args[0] + ";_" + Pair.Args[1] + "++)\n{\n char " + Pair.Args[1] + "[2056];\n sprintf(" + Pair.Args[1] + ", \"%d\", _" + Pair.Args[1] + ");\n" + Pair.Args[2] + "\n}\n";
                         }
                         else
                         {
                             Statics.AddImports("<stdlib.h>");
-                            Assembled += "for(int _" + Pair.Args[1] + " = 0;_" + Pair.Args[1] + " <= atoi(" + Pair.Args[0] + ");_" + Pair.Args[1] + "++)\n{\n char " + Pair.Args[1] + "[2056];\n sprintf(" + Pair.Args[1] + ", \"%d\", _" + Pair.Args[1] + ");\n" + Pair.Args[2] + "\n}\n";
+                            Assembled += "for(int _" + Pair.Args[1] + " = 0;_" + Pair.Args[1] + " < atoi(" + Pair.Args[0] + ");_" + Pair.Args[1] + "++)\n{\n char " + Pair.Args[1] + "[2056];\n sprintf(" + Pair.Args[1] + ", \"%d\", _" + Pair.Args[1] + ");\n" + Pair.Args[2] + "\n}\n";
                         }
                         break;
 

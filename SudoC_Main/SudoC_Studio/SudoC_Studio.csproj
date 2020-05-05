@@ -27,6 +27,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,9 +64,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms.Ribbon">
-      <HintPath>..\..\..\..\..\Desktop\System.Windows.Forms.Ribbon.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -109,6 +108,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="RibbonMarkup.ribbon" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -133,6 +133,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Type to color associations.txt" />
+    <Content Include="RibbonMarkup.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SudoC_Main\SudoC_Main.csproj">
@@ -157,4 +158,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\RibbonLib.2.7.9.0\build\RibbonLib.targets" Condition="Exists('..\packages\RibbonLib.2.7.9.0\build\RibbonLib.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\RibbonLib.2.7.9.0\build\RibbonLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RibbonLib.2.7.9.0\build\RibbonLib.targets'))" />
+  </Target>
 </Project>

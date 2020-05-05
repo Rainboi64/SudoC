@@ -26,10 +26,7 @@ namespace SudoC_Studio
             {
                 Directory.CreateDirectory(@".\jsonDatabase");
 
-                StudioStatics.Settings.sMold = @".\Resources\DefaultMold.c";
                 StudioStatics.Settings.sCCompilerPath = "gcc";
-                StudioStatics.Settings.bHideRibbon = false;
-                StudioStatics.Settings.bHideCTab = false;
 
                 JsonManager.Serialize(StudioStatics.Settings);
 
