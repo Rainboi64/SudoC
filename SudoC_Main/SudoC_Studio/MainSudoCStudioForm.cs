@@ -13,18 +13,22 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SudoC_Studio
 {
-    public partial class Form1 : Form
+    public partial class MainSudoCStudioForm : Form
     {
+        SudoC_SDK SDK = new SudoC_SDK();
         static string filename = string.Empty;
         AutocompleteMenu popupMenu;
+        Style GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Regular);
         Style KeywordsStyle = new TextStyle(Brushes.DeepPink, null, FontStyle.Regular);
         Style FunctionNameStyle = new TextStyle(Brushes.Teal, null, FontStyle.Regular);
-        Style NamesNameStyle = new TextStyle(Brushes.DarkRed, null, FontStyle.Regular);
+        Style NamesNameStyle = new TextStyle(new SolidBrush(Color.FromArgb(205, 120, 0)), null, FontStyle.Regular);
 
         string[] keywords = { "var = ;"};
         string[] methods = { "fetch()","input<>","print()"};
@@ -34,27 +38,44 @@ namespace SudoC_Studio
                };
         bool bThrow = false;
         JsonTreeView jsonTreeView = new JsonTreeView();
-        public Form1(string InputArg)
+        public MainSudoCStudioForm(string InputArg)
         {
             InitializeComponent();
-            fastColoredTextBox2.Language = Language.CSharp;
-            popupMenu = new AutocompleteMenu(fastColoredTextBox1);
+
+            scCViewStats.Panel1Collapsed = 
+            StudioStatics.Settings.PreviewCollapsed;
+            scCViewStats.Panel2Collapsed = 
+            StudioStatics.Settings.MemoryViewCollapsed;
+            scMainPreview.Panel2Collapsed =
+            StudioStatics.Settings.LeftPanelCollapsed;
+            scEditorConsole.Panel2Collapsed =
+            StudioStatics.Settings.ConsoleCollapsed;
+
+            fctbCWindow.Language = Language.CSharp;
+            popupMenu = new AutocompleteMenu(fctbMainEditor);
             popupMenu.AllowTabKey = true;
+
             jsonTreeView.Dock = DockStyle.Fill;
             jsonTreeView.ImageList.TransparentColor = Color.White;
             jsonTreeView.ImageList.ColorDepth = ColorDepth.Depth32Bit;
-
             jsonTreeView.BackColor = Color.FromArgb(30, 30, 30);
             jsonTreeView.BorderStyle = BorderStyle.None;
             jsonTreeView.ForeColor = Color.FromArgb(250, 250, 250);
             jsonTreeView.NodeMouseClick += JsonTreeView_NodeMouseClick;
-            splitContainer5.Panel1.Controls.Add(jsonTreeView);
+
+            scTreePreview.Panel1.Controls.Add(jsonTreeView);
 
             if (InputArg != "")
             {
-                fastColoredTextBox1.Text = File.ReadAllText(InputArg);
+                fctbMainEditor.Text = File.ReadAllText(InputArg);
                 filename = InputArg;
             }
+
+            popupMenu.BackColor = Color.FromArgb(35, 35, 35);
+            popupMenu.HoveredColor = Color.FromArgb(100,100,100);
+            popupMenu.SelectedColor = Color.Teal;
+            popupMenu.ForeColor = Color.WhiteSmoke;
+
             BuildAutocompleteMenu();
         }
         class Nodes
@@ -64,12 +85,18 @@ namespace SudoC_Studio
         }
         private void JsonTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-
-                Nodes nodes = new Nodes();
+            Nodes nodes = new Nodes();
             nodes.Value = e.Node.Text;
                 foreach (TreeNode item in e.Node.Nodes)
                 {
-                    nodes.Children.Add(item.Text.Split(':')[0], item.Text.Split(':')[item.Text.Split(':').Length - 1]);
+                  try
+                  {
+                      nodes.Children.Add(item.Text.Split(':')[0], item.Text.Split(':')[item.Text.Split(':').Length - 1]);
+                  }
+                  catch (Exception)
+                  {
+
+                  }
                 }
                 fastColoredTextBox4.Text = JsonConvert.SerializeObject(nodes, Formatting.Indented);
             noneToolStripMenuItem.Text = e.Node.Text.Split(':')[0];
@@ -100,7 +127,7 @@ namespace SudoC_Studio
         private void Form1_Load(object sender, EventArgs e)
         {
             tMemStat.Start();
-            fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.JS;
+            fctbMainEditor.Language = FastColoredTextBoxNS.Language.JS;
 
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -114,7 +141,7 @@ namespace SudoC_Studio
            var sfd= saveFileDialog.ShowDialog();
             if (sfd == DialogResult.OK)
             {
-                File.WriteAllText(saveFileDialog.FileName,fastColoredTextBox1.Text);
+                File.WriteAllText(saveFileDialog.FileName,fctbMainEditor.Text);
                 filename = saveFileDialog.FileName;
             }
         }
@@ -126,7 +153,7 @@ namespace SudoC_Studio
             var sfd = saveFileDialog.ShowDialog();
             if (sfd == DialogResult.OK)
             {
-                File.WriteAllText(saveFileDialog.FileName, fastColoredTextBox2.Text);
+                File.WriteAllText(saveFileDialog.FileName, fctbCWindow.Text);
          
             }
         }
@@ -139,7 +166,7 @@ namespace SudoC_Studio
             if (ofgresult == DialogResult.OK)
             {
                 filename = openFileDialog.FileName;
-                fastColoredTextBox1.Text = File.ReadAllText(filename);
+                fctbMainEditor.Text = File.ReadAllText(filename);
             }
         }
 
@@ -152,18 +179,19 @@ namespace SudoC_Studio
                 var sfd = saveFileDialog.ShowDialog();
                 if (sfd == DialogResult.OK)
                 {
-                    File.WriteAllText(saveFileDialog.FileName, fastColoredTextBox1.Text);
+                    File.WriteAllText(saveFileDialog.FileName, fctbMainEditor.Text);
                     filename = saveFileDialog.FileName;
                 }
             }
             else
             {
-                File.WriteAllText(filename, fastColoredTextBox1.Text);
+                File.WriteAllText(filename, fctbMainEditor.Text);
             }
         }
 
         private void Run_Click(object sender, EventArgs e)
         {
+            lStatus.Text = "Started compiler...";
             if (filename == "")
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -171,18 +199,18 @@ namespace SudoC_Studio
                 var sfd = saveFileDialog.ShowDialog();
                 if (sfd == DialogResult.OK)
                 {
-                    File.WriteAllText(saveFileDialog.FileName, fastColoredTextBox1.Text);
+                    File.WriteAllText(saveFileDialog.FileName, fctbMainEditor.Text);
                     filename = saveFileDialog.FileName;
-                    Process.Start(@".\SudoC_Windows.exe", filename);
+                    bwRunWorker.RunWorkerAsync();
                 }
             }
             else
             {
-                File.WriteAllText(filename, fastColoredTextBox1.Text);
-                Process.Start(@".\SudoC_Windows.exe", filename);
+                File.WriteAllText(filename, fctbMainEditor.Text);
+                bwRunWorker.RunWorkerAsync();
             }
-            
         }
+
 
         private class LocalStatics
         {
@@ -213,11 +241,122 @@ namespace SudoC_Studio
 
         private void FastColoredTextBox1_TextChangedDelayed(object sender, TextChangedEventArgs e)
         {
+           SudoC_Lexxer sudoC_Lexxer = new SudoC_Lexxer();
+            SudoC_Assembler sudoC_Assembler = new SudoC_Assembler();
+            CompilerStats compilerStats = new CompilerStats();
+            try
+            {
+                 Statics.reset();
+                 var CurrentTime0 = DateTime.Now;
+                 var Lexxed = sudoC_Lexxer.Lex(fctbMainEditor.Text);
+                 var CurrentTime1 = DateTime.Now;
+
+                 var CurrentTime2 = DateTime.Now;
+                 var Assembled = sudoC_Assembler.Assemble(Lexxed);
+                 var CurrentTime3 = DateTime.Now;
+                 compilerStats.LexxerStartTime = CurrentTime0;
+                 compilerStats.LexxerEndTime = CurrentTime1;
+                 compilerStats.LexxerTime = CurrentTime1.Subtract(CurrentTime0);
+                 compilerStats.AssemblerStartTime = CurrentTime2;
+                 compilerStats.AssemblerEndTime = CurrentTime3;
+                 compilerStats.AssemblerTime = CurrentTime3.Subtract(CurrentTime2);
+
+                 fctbCWindow.Text = Assembled;
+                 
+                 lStatus.Text = ("Finished!");
+
+
+             BuildAutocompleteMenu();
+
+            }
+            catch (Exception ex)
+            {
+                lStatus.Text = ex.Message;
+                if (bThrow)
+                    throw;
+            }
+            var statics = new LocalStatics();
+            statics.fVersionNumber = Statics.fVersionNumber;
+            statics.dContexts = Statics.dContexts;
+            statics.dDefines = Statics.dDefines;
+            statics.lImports = Statics.lImports;
+            statics.lVars = Statics.lVars;
+            statics.iStringNameCounter = Statics.iStringNameCounter;
+            CompilerValues compilerValues = new CompilerValues();
+            compilerValues.LocalStatics = statics;
+            compilerValues.SudoC_Assembler = sudoC_Assembler;
+            compilerValues.SudoC_Lexxer = sudoC_Lexxer;
+            fctbCompilerValues.Text = JsonConvert.SerializeObject(compilerValues, Formatting.Indented);
+            fctbCompilerStats.Text = JsonConvert.SerializeObject(compilerStats, Formatting.Indented);
+            jsonTreeView.ShowJson(fctbCompilerValues.Text); 
+        }
+
+        private void ToolStripDropDownButton1_Click(object sender, EventArgs e)
+        {
+            if (bThrow == true)
+            {
+                bThrow = false;
+            }
+            else
+            {
+                bThrow = true;
+            }
+        }
+
+        private void TMemStat_Tick(object sender, EventArgs e)
+        {
+            Process thisProc = Process.GetCurrentProcess();
+            currentMemoryUsageToolStripMenuItem.Text = "Memory Usage: "+thisProc.PagedMemorySize64 / 1000000 +"MB";
+        }
+
+        private void FastColoredTextBox2_TextChangedDelayed(object sender, TextChangedEventArgs e)
+        {
             //clear styles
-            fastColoredTextBox1.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
+            fctbCWindow.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
             //highlight keywords of LISP
-            fastColoredTextBox1.Range.SetStyle(KeywordsStyle, @"\b(context)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            fastColoredTextBox1.Range.SetStyle(FunctionNameStyle, @"\b(print|fetch|include|repeat|def|=|var)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            fctbCWindow.Range.SetStyle(KeywordsStyle, @"\b(int|var|char|int)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            fctbCWindow.Range.SetStyle(FunctionNameStyle, @"\b(printf|scanf|#|include|atoi|var|char|int|for|while)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        }
+
+        private void MemViewTabButton_Click(object sender, EventArgs e)
+        {
+            pCompStats.Visible = false;
+            pMemViewCode.Visible = false;
+            pMemView.Visible = true;
+        }
+
+        private void MemViewCodeTabButton_Click(object sender, EventArgs e)
+        {
+            pCompStats.Visible = false;
+            pMemViewCode.Visible = true;
+            pMemView.Visible = false;
+        }
+
+        private void CompStatsTabButton_Click(object sender, EventArgs e)
+        {
+            pCompStats.Visible = true;
+            pMemViewCode.Visible = false;
+            pMemView.Visible = false;
+        }
+
+        private void FastColoredTextBox2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //clear styles
+            fctbCWindow.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
+            //highlight keywords of LISP
+            fctbCWindow.Range.SetStyle(KeywordsStyle, @"\b(int|var|char|int)\b", System.Text.RegularExpressions.RegexOptions.None);
+            fctbCWindow.Range.SetStyle(FunctionNameStyle, @"\b(printf|scanf|#|include|atoi|var|char|int|for|while)\b", System.Text.RegularExpressions.RegexOptions.None);
+        }
+
+        private void FastColoredTextBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //comment highlighting
+            fctbMainEditor.Range.ClearStyle(GreenStyle);
+            //clear styles
+            fctbMainEditor.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
+            //highlight keywords of LISP
+            fctbMainEditor.Range.SetStyle(KeywordsStyle, @"\b(context)\b", System.Text.RegularExpressions.RegexOptions.None);
+            fctbMainEditor.Range.SetStyle(FunctionNameStyle, @"\b(print|input<>|fetch|include|repeat|def|=|var)\b", System.Text.RegularExpressions.RegexOptions.None);
             var Names = @"\b(";
             foreach (string name in Statics.dContexts.Keys)
             {
@@ -234,123 +373,112 @@ namespace SudoC_Studio
             }
             Names.TrimEnd('|');
             Names += @")\b";
-            SudoC_Lexxer sudoC_Lexxer = new SudoC_Lexxer();
-            SudoC_Assembler sudoC_Assembler = new SudoC_Assembler();
-            CompilerStats compilerStats = new CompilerStats();
-            try
-            {
-                 fastColoredTextBox1.Range.SetStyle(NamesNameStyle, Names, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-                 Statics.reset();
-                 var CurrentTime0 = DateTime.Now;
-                 var Lexxed = sudoC_Lexxer.Lex(fastColoredTextBox1.Text);
-                 var CurrentTime1 = DateTime.Now;
-
-                 var CurrentTime2 = DateTime.Now;
-                 var Assembled = sudoC_Assembler.Assemble(Lexxed);
-                 var CurrentTime3 = DateTime.Now;
-                 compilerStats.LexxerStartTime = CurrentTime0;
-                 compilerStats.LexxerEndTime = CurrentTime1;
-                 compilerStats.LexxerTime = CurrentTime1.Subtract(CurrentTime0);
-                 compilerStats.AssemblerStartTime = CurrentTime2;
-                 compilerStats.AssemblerEndTime = CurrentTime3;
-                 compilerStats.AssemblerTime = CurrentTime3.Subtract(CurrentTime2);
-
-                 fastColoredTextBox2.Text = Assembled;
-                 
-                 label1.Text = ("Finished!");
-
-
-             BuildAutocompleteMenu();
-
-            }
-            catch (Exception ex)
-            {
-                label1.Text = ex.Message;
-                if (bThrow) throw;
-            }
-            var statics = new LocalStatics();
-            statics.fVersionNumber = Statics.fVersionNumber;
-            statics.dContexts = Statics.dContexts;
-            statics.dDefines = Statics.dDefines;
-            statics.lImports = Statics.lImports;
-            statics.lVars = Statics.lVars;
-            statics.iStringNameCounter = Statics.iStringNameCounter;
-            CompilerValues compilerValues = new CompilerValues();
-            compilerValues.LocalStatics = statics;
-            compilerValues.SudoC_Assembler = sudoC_Assembler;
-            compilerValues.SudoC_Lexxer = sudoC_Lexxer;
-            fastColoredTextBox3.Text = JsonConvert.SerializeObject(compilerValues, Formatting.Indented);
-            fastColoredTextBox5.Text = JsonConvert.SerializeObject(compilerStats, Formatting.Indented);
-            jsonTreeView.ShowJson(fastColoredTextBox3.Text); 
+            fctbMainEditor.Range.SetStyle(NamesNameStyle, Names, RegexOptions.Singleline);
+            //clear style of changed range
+            fctbMainEditor.Range.SetStyle(GreenStyle, @"//*$", RegexOptions.None);
         }
 
-        private void ToolStripDropDownButton1_Click(object sender, EventArgs e)
+        private void Tb_ConsoleBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (bThrow == true)
+            if(e.KeyCode == Keys.Enter)
             {
-                bThrow = false;
+                fctbConsole.AppendText(tb_ConsoleBox.Text+"\n"+ SDK.Do(tb_ConsoleBox.Text.Split(' ')[0], tb_ConsoleBox.Text.Split(' ').Skip(1).ToArray()) +"\n");
+                tb_ConsoleBox.Clear();
+            
+            }
+        }
+
+        private void BwRunWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var Output = "";
+            Output = SDK.Do("open", new string[1] { filename });
+            fctbConsole.AppendText(tb_ConsoleBox.Text + "\n" + Output);
+        }
+
+        private void BwRunWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            lStatus.Text = "Finished";
+        }
+
+        private void FctbConsole_TextChangedDelayed(object sender, TextChangedEventArgs e)
+        {
+            fctbConsole.GoEnd();
+        }
+
+        private void Tb_ConsoleBox_Enter(object sender, EventArgs e)
+        {
+            if (tb_ConsoleBox.Text == "Enter Your Command Here")
+            {
+                tb_ConsoleBox.Text = "";
+                tb_ConsoleBox.ForeColor = Color.FromArgb(150,150,150);
+            }
+        }
+
+        private void Tb_ConsoleBox_Leave(object sender, EventArgs e)
+        {
+            if (tb_ConsoleBox.Text.Length == 0)
+            {
+                tb_ConsoleBox.Text = "Enter Your Command Here";
+                tb_ConsoleBox.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void HidePreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!scCViewStats.Panel1Collapsed)
+            {
+                scCViewStats.Panel1Collapsed = true;
+                StudioStatics.Settings.PreviewCollapsed = true;
             }
             else
             {
-                bThrow = true;
+                scCViewStats.Panel1Collapsed = false;
+                StudioStatics.Settings.PreviewCollapsed = false;
             }
         }
 
-        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HideMemoryViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!scCViewStats.Panel2Collapsed)
+            {
+                scCViewStats.Panel2Collapsed = true;
+                StudioStatics.Settings.MemoryViewCollapsed = true;
+            }
+            else
+            {
+                scCViewStats.Panel2Collapsed = false;
+                StudioStatics.Settings.MemoryViewCollapsed = false;
 
-        }
-        private void TMemStat_Tick(object sender, EventArgs e)
-        {
-            Process thisProc = Process.GetCurrentProcess();
-            currentMemoryUsageToolStripMenuItem.Text = "Memory Usage: "+thisProc.PagedMemorySize64 / 1000000 +"MB";
-        }
-
-        private void FastColoredTextBox2_TextChangedDelayed(object sender, TextChangedEventArgs e)
-        {
-            //clear styles
-            fastColoredTextBox2.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
-            //highlight keywords of LISP
-            fastColoredTextBox2.Range.SetStyle(KeywordsStyle, @"\b(int|var|char|int)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            fastColoredTextBox2.Range.SetStyle(FunctionNameStyle, @"\b(printf|scanf|#|include|atoi|var|char|int|for|while)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            }
         }
 
-
-        private void SplitContainer3_Panel2_Paint(object sender, PaintEventArgs e)
+        private void HideLeftPanelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (!scMainPreview.Panel2Collapsed)
+            {
+                scMainPreview.Panel2Collapsed = true;
+                StudioStatics.Settings.LeftPanelCollapsed = true;
+            }
+            else
+            {
+                scMainPreview.Panel2Collapsed = false;
+                StudioStatics.Settings.LeftPanelCollapsed = false;
+            }
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void HideConsoleWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            panel1.Visible = false;
-            panel2.Visible = false;
-            panel3.Visible = true;
-        }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            panel1.Visible = false;
-            panel2.Visible = true;
-            panel3.Visible = false;
-        }
-
-        private void Button3_Click(object sender, EventArgs e)
-        {
-            panel1.Visible = true;
-            panel2.Visible = false;
-            panel3.Visible = false;
-        }
-
-        private void FastColoredTextBox2_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //clear styles
-            fastColoredTextBox2.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
-            //highlight keywords of LISP
-            fastColoredTextBox2.Range.SetStyle(KeywordsStyle, @"\b(int|var|char|int)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            fastColoredTextBox2.Range.SetStyle(FunctionNameStyle, @"\b(printf|scanf|#|include|atoi|var|char|int|for|while)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            if (!scEditorConsole.Panel2Collapsed)
+            {
+                scEditorConsole.Panel2Collapsed = true;
+                StudioStatics.Settings.ConsoleCollapsed = true;
+            }
+            else
+            {
+                scEditorConsole.Panel2Collapsed = false;
+                StudioStatics.Settings.ConsoleCollapsed = false;
+            }
         }
     }
-
-    }
+}
     

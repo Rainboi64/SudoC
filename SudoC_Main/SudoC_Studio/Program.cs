@@ -43,12 +43,12 @@ namespace SudoC_Studio
             try
             {
 
-                Application.Run(new Form1(args[0]));
+                Application.Run(new MainSudoCStudioForm(args[0]));
 
             }
             catch (Exception)
             {
-                Application.Run(new Form1(""));
+                Application.Run(new MainSudoCStudioForm(""));
             }
          
             

@@ -8,18 +8,34 @@ namespace SudoC_Main.Compiler
 {
     public class SudoC_Lexxer
     {
-        private string sConstructor = string.Empty;
-        private string sBuilder = string.Empty;
-        private bool bCaptureSpaces = false;
-        private bool bCaptureValue = false;
-        private int iCounter = 0;
-        private string sCompleteName = string.Empty;
-        private bool bInScope = false;
-        private string sRepeater;
-        private int iTaskIndex = 0;
-        private int iBracketsLevel = 0;
+
+        public string sConstructor { private set; get; }
+        public string sBuilder { private set; get; }
+        public bool bCaptureSpaces { private set; get; }
+        public bool bCaptureValue { private set; get; }
+        public int iCounter { private set; get; }
+        public string sCompleteName { private set; get; }
+        public bool bInScope { private set; get; }
+        public string sRepeater { private set; get; }
+        public int iTaskIndex { private set; get; }
+        public int iBracketsLevel { private set; get; }
+        public bool bFinishedCapture { private set; get; }
         private List<SudoC_Pair> Lexxed_Code = new List<SudoC_Pair>();
-        private bool bFinishedCapture;
+        public SudoC_Lexxer()
+        {
+            sConstructor = string.Empty;
+            sBuilder = string.Empty;
+            bCaptureSpaces = false;
+            bCaptureValue = false;
+            iCounter = 0;
+            sCompleteName = string.Empty;
+            bInScope = false;
+            iTaskIndex = 0;
+            sRepeater = "";
+            iBracketsLevel = 0;
+            bFinishedCapture = false;
+        }
+
 
         /// <summary>
         /// Main Lexxer Function

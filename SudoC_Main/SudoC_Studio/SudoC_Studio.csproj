@@ -76,18 +76,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoCompleter.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MainSudoCStudioForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainSudoCStudioForm.Designer.cs">
+      <DependentUpon>MainSudoCStudioForm.cs</DependentUpon>
     </Compile>
     <Compile Include="JsonManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="SudoC_SDK.cs" />
+    <EmbeddedResource Include="MainSudoCStudioForm.resx">
+      <DependentUpon>MainSudoCStudioForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -108,7 +109,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="RibbonMarkup.ribbon" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -133,7 +133,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Type to color associations.txt" />
-    <Content Include="RibbonMarkup.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SudoC_Main\SudoC_Main.csproj">
@@ -163,6 +162,5 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\RibbonLib.2.7.9.0\build\RibbonLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RibbonLib.2.7.9.0\build\RibbonLib.targets'))" />
   </Target>
 </Project>
