@@ -1,7 +1,5 @@
 # SudoC
-Programming Language for idiots, written mainly by me(other people are for comidec purposes only).
-Converts easy and understandable syntax to very hard but effeicient C.
-
+Programming Language for idoits, written mainly by me(other people are for comidec purposes only).
 # Examples
 1. Auto Created Variables :
 ```python

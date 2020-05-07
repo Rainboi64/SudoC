@@ -9,10 +9,10 @@ namespace SudoC_Studio
    
   public class Settings
     {
-        public string sMold { get; set; }
-        public bool bHideRibbon { get; set; }
-        public bool bHideCTab { get; set; }
-        public string sCCompilerPath { get; set; }
-
+        public string sCCompilerPath = "gcc";
+        public bool MemoryViewCollapsed = false;
+        public bool PreviewCollapsed = false;
+        public bool LeftPanelCollapsed = false;
+        public bool ConsoleCollapsed = false;
     }
 }

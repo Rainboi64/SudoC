@@ -53,14 +53,22 @@ namespace SudoC_Main.Compiler
         Finished:
             Console.WriteLine("");
             Console.WriteLine("Program ended @ " + DateTime.Now);
-            Console.WriteLine("Do you like to start the program\n(y)es? || (*)No");
-            Char Input = Console.ReadKey().KeyChar;
-            switch (Input)
+            if (args[args.Length - 1] != @"\o")
             {
-                case 'y':
-                    Console.Clear();
-                    Process.Start("Output.exe");
-                    break;
+
+                Console.WriteLine("Do you like to start the program\n(y)es? || (*)No");
+                Char Input = Console.ReadKey().KeyChar;
+                switch (Input)
+                {
+                    case 'y':
+                        Console.Clear();
+                        Process.Start("Output.exe");
+                        break;
+                }
+            }
+            else
+            {
+                Process.Start("Output.exe");
             }
 
         }

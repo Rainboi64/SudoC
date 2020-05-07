@@ -26,10 +26,7 @@ namespace SudoC_Studio
             {
                 Directory.CreateDirectory(@".\jsonDatabase");
 
-                StudioStatics.Settings.sMold = @".\Resources\DefaultMold.c";
                 StudioStatics.Settings.sCCompilerPath = "gcc";
-                StudioStatics.Settings.bHideRibbon = false;
-                StudioStatics.Settings.bHideCTab = false;
 
                 JsonManager.Serialize(StudioStatics.Settings);
 
@@ -46,12 +43,12 @@ namespace SudoC_Studio
             try
             {
 
-                Application.Run(new Form1(args[0]));
+                Application.Run(new MainSudoCStudioForm(args[0]));
 
             }
             catch (Exception)
             {
-                Application.Run(new Form1(""));
+                Application.Run(new MainSudoCStudioForm(""));
             }
          
             
