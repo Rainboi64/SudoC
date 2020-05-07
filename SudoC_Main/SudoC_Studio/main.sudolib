@@ -1,0 +1,40 @@
+def &pi = 3.14159265359;
+context default
+{
+
+context systemCmd
+{
+use(<stdio.h>)
+</system(command);
+\>
+}
+
+context clearCmd
+{
+use(<stdio.h>)
+</system("cls");
+\>
+}
+
+context pauseCmd
+{
+use(<stdio.h>)
+</system("pause");
+\>
+}
+
+context sleep
+{
+use(<stdio.h>)
+use(<stdlib.h>)
+</sleep(atoi(sleepTime));
+\>
+}
+
+context exit
+{
+</return 0;
+\>
+}
+
+}

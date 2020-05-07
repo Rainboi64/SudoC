@@ -1,21 +1,16 @@
 ﻿using Alex75.JsonViewer.WindowsForm;
 using FastColoredTextBoxNS;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SudoC_Main;
 using SudoC_Main.Compiler;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SudoC_Studio
@@ -26,7 +21,8 @@ namespace SudoC_Studio
         static string filename = string.Empty;
         AutocompleteMenu popupMenu;
         Style GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Regular);
-        Style KeywordsStyle = new TextStyle(Brushes.DeepPink, null, FontStyle.Regular);
+        Style KeywordsStyle = new TextStyle(Brushes.Purple, null, FontStyle.Regular);
+        Style BracketsStyle = new TextStyle(new SolidBrush(Color.FromArgb(0, 130, 255)), null, FontStyle.Regular);
         Style FunctionNameStyle = new TextStyle(Brushes.Teal, null, FontStyle.Regular);
         Style NamesNameStyle = new TextStyle(new SolidBrush(Color.FromArgb(205, 120, 0)), null, FontStyle.Regular);
 
@@ -34,8 +30,7 @@ namespace SudoC_Studio
         string[] methods = { "fetch()","input<>","print()"};
         string[] snippets = { "if(^)\n{\n;\n}", "if(^)\n{\n;\n}\nelse\n{\n;\n}", "for(^;;)\n{\n;\n}", "while(^)\n{\n;\n}", "do${\n^;\n}while();", "switch(^)\n{\n\n}" ,"repeat(^) "+ "Input" + Statics.iStringNameCounter + "\n{\n\n}"};
         string[] declarationSnippets = {
-               "context ^\n{\n}"
-               };
+               "context ^\n{\n}"};
         bool bThrow = false;
         JsonTreeView jsonTreeView = new JsonTreeView();
         public MainSudoCStudioForm(string InputArg)
@@ -56,8 +51,8 @@ namespace SudoC_Studio
             popupMenu.AllowTabKey = true;
 
             jsonTreeView.Dock = DockStyle.Fill;
-            jsonTreeView.ImageList.TransparentColor = Color.White;
-            jsonTreeView.ImageList.ColorDepth = ColorDepth.Depth32Bit;
+            // jsonTreeView.ImageList.TransparentColor = Color.White;
+            jsonTreeView.ImageList = ilPreviewTree;
             jsonTreeView.BackColor = Color.FromArgb(30, 30, 30);
             jsonTreeView.BorderStyle = BorderStyle.None;
             jsonTreeView.ForeColor = Color.FromArgb(250, 250, 250);
@@ -78,6 +73,37 @@ namespace SudoC_Studio
 
             BuildAutocompleteMenu();
         }
+        private void HighlightfctbMain()
+        {
+            //comment highlighting
+            fctbMainEditor.Range.ClearStyle(GreenStyle);
+            //clear styles
+            fctbMainEditor.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
+            //highlight keywords of LISP
+            fctbMainEditor.Range.SetStyle(KeywordsStyle, @"\b(context|infinite)\b", System.Text.RegularExpressions.RegexOptions.None);
+            fctbMainEditor.Range.SetStyle(BracketsStyle, @"\<(.*?)\>");
+            fctbMainEditor.Range.SetStyle(FunctionNameStyle, @"\b(print|input<>|fetch|include|repeat|def|=|var)\b", System.Text.RegularExpressions.RegexOptions.None);
+            var Names = @"\b(";
+            foreach (string name in Statics.dContexts.Keys)
+            {
+                Names += name + "|";
+            }
+            foreach (string name in Statics.dDefines.Keys)
+            {
+                Names += name + "|";
+            }
+
+            foreach (string name in Statics.lVars)
+            {
+                Names += name + "|";
+            }
+            Names.TrimEnd('|');
+            Names += @")\b";
+            fctbMainEditor.Range.SetStyle(NamesNameStyle, Names, RegexOptions.Singleline);
+            //clear style of changed range
+            fctbMainEditor.Range.SetStyle(GreenStyle, @"//*$", RegexOptions.None);
+        }
+
         class Nodes
         {
            public string Value = "";
@@ -167,6 +193,7 @@ namespace SudoC_Studio
             {
                 filename = openFileDialog.FileName;
                 fctbMainEditor.Text = File.ReadAllText(filename);
+                HighlightfctbMain();
             }
         }
 
@@ -246,7 +273,7 @@ namespace SudoC_Studio
             CompilerStats compilerStats = new CompilerStats();
             try
             {
-                 Statics.reset();
+                Statics.reset();
                  var CurrentTime0 = DateTime.Now;
                  var Lexxed = sudoC_Lexxer.Lex(fctbMainEditor.Text);
                  var CurrentTime1 = DateTime.Now;
@@ -309,15 +336,6 @@ namespace SudoC_Studio
             currentMemoryUsageToolStripMenuItem.Text = "Memory Usage: "+thisProc.PagedMemorySize64 / 1000000 +"MB";
         }
 
-        private void FastColoredTextBox2_TextChangedDelayed(object sender, TextChangedEventArgs e)
-        {
-            //clear styles
-            fctbCWindow.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
-            //highlight keywords of LISP
-            fctbCWindow.Range.SetStyle(KeywordsStyle, @"\b(int|var|char|int)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            fctbCWindow.Range.SetStyle(FunctionNameStyle, @"\b(printf|scanf|#|include|atoi|var|char|int|for|while)\b", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-        }
-
         private void MemViewTabButton_Click(object sender, EventArgs e)
         {
             pCompStats.Visible = false;
@@ -350,32 +368,7 @@ namespace SudoC_Studio
 
         private void FastColoredTextBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //comment highlighting
-            fctbMainEditor.Range.ClearStyle(GreenStyle);
-            //clear styles
-            fctbMainEditor.Range.ClearStyle(KeywordsStyle, FunctionNameStyle);
-            //highlight keywords of LISP
-            fctbMainEditor.Range.SetStyle(KeywordsStyle, @"\b(context)\b", System.Text.RegularExpressions.RegexOptions.None);
-            fctbMainEditor.Range.SetStyle(FunctionNameStyle, @"\b(print|input<>|fetch|include|repeat|def|=|var)\b", System.Text.RegularExpressions.RegexOptions.None);
-            var Names = @"\b(";
-            foreach (string name in Statics.dContexts.Keys)
-            {
-                Names += name + "|";
-            }
-            foreach (string name in Statics.dDefines.Keys)
-            {
-                Names += name + "|";
-            }
-
-            foreach (string name in Statics.lVars)
-            {
-                Names += name + "|";
-            }
-            Names.TrimEnd('|');
-            Names += @")\b";
-            fctbMainEditor.Range.SetStyle(NamesNameStyle, Names, RegexOptions.Singleline);
-            //clear style of changed range
-            fctbMainEditor.Range.SetStyle(GreenStyle, @"//*$", RegexOptions.None);
+            HighlightfctbMain();
         }
 
         private void Tb_ConsoleBox_KeyDown(object sender, KeyEventArgs e)

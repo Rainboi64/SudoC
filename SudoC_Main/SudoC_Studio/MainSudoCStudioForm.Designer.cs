@@ -76,6 +76,7 @@
             this.currentMemoryUsageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miniToolStrip = new System.Windows.Forms.MenuStrip();
             this.bwRunWorker = new System.ComponentModel.BackgroundWorker();
+            this.ilPreviewTree = new System.Windows.Forms.ImageList(this.components);
             this.msMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMainPreview)).BeginInit();
             this.scMainPreview.Panel1.SuspendLayout();
@@ -526,7 +527,6 @@
             this.fctbCWindow.WordWrap = true;
             this.fctbCWindow.Zoom = 100;
             this.fctbCWindow.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox2_TextChanged);
-            this.fctbCWindow.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox2_TextChangedDelayed);
             // 
             // dmCView
             // 
@@ -875,6 +875,22 @@
             this.bwRunWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BwRunWorker_DoWork);
             this.bwRunWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BwRunWorker_RunWorkerCompleted);
             // 
+            // ilPreviewTree
+            // 
+            this.ilPreviewTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilPreviewTree.ImageStream")));
+            this.ilPreviewTree.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilPreviewTree.Images.SetKeyName(0, "Array");
+            this.ilPreviewTree.Images.SetKeyName(1, "Boolean");
+            this.ilPreviewTree.Images.SetKeyName(2, "Date");
+            this.ilPreviewTree.Images.SetKeyName(3, "Float");
+            this.ilPreviewTree.Images.SetKeyName(4, "Guid");
+            this.ilPreviewTree.Images.SetKeyName(5, "Integer");
+            this.ilPreviewTree.Images.SetKeyName(6, "None");
+            this.ilPreviewTree.Images.SetKeyName(7, "Null");
+            this.ilPreviewTree.Images.SetKeyName(8, "Object");
+            this.ilPreviewTree.Images.SetKeyName(9, "String");
+            this.ilPreviewTree.Images.SetKeyName(10, "TimeSpan");
+            // 
             // MainSudoCStudioForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -991,6 +1007,7 @@
         private FastColoredTextBoxNS.FastColoredTextBox fctbConsole;
         private System.Windows.Forms.TextBox tb_ConsoleBox;
         private System.Windows.Forms.ToolStripMenuItem hideConsoleWindowToolStripMenuItem;
+        private System.Windows.Forms.ImageList ilPreviewTree;
     }
 }
 
