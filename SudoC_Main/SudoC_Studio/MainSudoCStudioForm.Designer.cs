@@ -43,10 +43,34 @@
             this.hideMemoryViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideLeftPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideConsoleWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomInToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomOutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.findToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.foldToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutSudoCStudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutSudoCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scMainPreview = new System.Windows.Forms.SplitContainer();
             this.scEditorConsole = new System.Windows.Forms.SplitContainer();
             this.scEditorDM = new System.Windows.Forms.SplitContainer();
             this.fctbMainEditor = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.cmsMainEditor = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.foldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dmMainEditor = new FastColoredTextBoxNS.DocumentMap();
             this.fctbConsole = new FastColoredTextBoxNS.FastColoredTextBox();
             this.msConsoleTag = new System.Windows.Forms.MenuStrip();
@@ -56,6 +80,11 @@
             this.scCViewStats = new System.Windows.Forms.SplitContainer();
             this.scCViewDM = new System.Windows.Forms.SplitContainer();
             this.fctbCWindow = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.cmsCView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cViewcopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cViewZoomInStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cViewZoomOutStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cViewFindlStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dmCView = new FastColoredTextBoxNS.DocumentMap();
             this.rCView = new FastColoredTextBoxNS.Ruler();
             this.scTabsPanels = new System.Windows.Forms.SplitContainer();
@@ -91,6 +120,7 @@
             this.scEditorDM.Panel2.SuspendLayout();
             this.scEditorDM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbMainEditor)).BeginInit();
+            this.cmsMainEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbConsole)).BeginInit();
             this.msConsoleTag.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scCViewStats)).BeginInit();
@@ -102,6 +132,7 @@
             this.scCViewDM.Panel2.SuspendLayout();
             this.scCViewDM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbCWindow)).BeginInit();
+            this.cmsCView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scTabsPanels)).BeginInit();
             this.scTabsPanels.Panel1.SuspendLayout();
             this.scTabsPanels.Panel2.SuspendLayout();
@@ -128,7 +159,10 @@
             this.msMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.tabsToolStripMenuItem});
+            this.tabsToolStripMenuItem,
+            this.editorToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
             this.msMain.Size = new System.Drawing.Size(1663, 24);
@@ -150,6 +184,8 @@
             // 
             // openToolStripMenuItem
             // 
+            this.openToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.openToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
@@ -158,6 +194,8 @@
             // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.saveToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
@@ -166,6 +204,8 @@
             // 
             // saveAsToolStripMenuItem
             // 
+            this.saveAsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.saveAsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
@@ -175,6 +215,8 @@
             // 
             // runToolStripMenuItem
             // 
+            this.runToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.runToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
             this.runToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.runToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
@@ -183,6 +225,8 @@
             // 
             // exportCToolStripMenuItem
             // 
+            this.exportCToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.exportCToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.exportCToolStripMenuItem.Name = "exportCToolStripMenuItem";
             this.exportCToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.S)));
@@ -204,6 +248,8 @@
             // 
             // hidePreviewToolStripMenuItem
             // 
+            this.hidePreviewToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.hidePreviewToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.hidePreviewToolStripMenuItem.Name = "hidePreviewToolStripMenuItem";
             this.hidePreviewToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.hidePreviewToolStripMenuItem.Text = "Hide Preview";
@@ -211,6 +257,8 @@
             // 
             // hideMemoryViewToolStripMenuItem
             // 
+            this.hideMemoryViewToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.hideMemoryViewToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.hideMemoryViewToolStripMenuItem.Name = "hideMemoryViewToolStripMenuItem";
             this.hideMemoryViewToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.hideMemoryViewToolStripMenuItem.Text = "Hide Memory View";
@@ -218,6 +266,8 @@
             // 
             // hideLeftPanelToolStripMenuItem
             // 
+            this.hideLeftPanelToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.hideLeftPanelToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.hideLeftPanelToolStripMenuItem.Name = "hideLeftPanelToolStripMenuItem";
             this.hideLeftPanelToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.hideLeftPanelToolStripMenuItem.Text = "Hide Left Panel";
@@ -225,10 +275,164 @@
             // 
             // hideConsoleWindowToolStripMenuItem
             // 
+            this.hideConsoleWindowToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.hideConsoleWindowToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.hideConsoleWindowToolStripMenuItem.Name = "hideConsoleWindowToolStripMenuItem";
             this.hideConsoleWindowToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.hideConsoleWindowToolStripMenuItem.Text = "Hide Console Window";
             this.hideConsoleWindowToolStripMenuItem.Click += new System.EventHandler(this.HideConsoleWindowToolStripMenuItem_Click);
+            // 
+            // editorToolStripMenuItem
+            // 
+            this.editorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.pasteToolStripMenuItem1,
+            this.zoomInToolStripMenuItem1,
+            this.zoomOutToolStripMenuItem1,
+            this.findToolStripMenuItem1,
+            this.replaceToolStripMenuItem1,
+            this.foldToolStripMenuItem1});
+            this.editorToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.editorToolStripMenuItem.Name = "editorToolStripMenuItem";
+            this.editorToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.editorToolStripMenuItem.Text = "Editor";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.toolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.toolStripMenuItem1.Text = "Copy";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.toolStripMenuItem2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(222, 22);
+            this.toolStripMenuItem2.Text = "Cut";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.CutToolStripMenuItem1_Click);
+            // 
+            // pasteToolStripMenuItem1
+            // 
+            this.pasteToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.pasteToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.pasteToolStripMenuItem1.Name = "pasteToolStripMenuItem1";
+            this.pasteToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.pasteToolStripMenuItem1.Text = "Paste";
+            this.pasteToolStripMenuItem1.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
+            // 
+            // zoomInToolStripMenuItem1
+            // 
+            this.zoomInToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.zoomInToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.zoomInToolStripMenuItem1.Name = "zoomInToolStripMenuItem1";
+            this.zoomInToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
+            this.zoomInToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.zoomInToolStripMenuItem1.Text = "Zoom In";
+            this.zoomInToolStripMenuItem1.Click += new System.EventHandler(this.ZoomInToolStripMenuItem_Click);
+            // 
+            // zoomOutToolStripMenuItem1
+            // 
+            this.zoomOutToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.zoomOutToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.zoomOutToolStripMenuItem1.Name = "zoomOutToolStripMenuItem1";
+            this.zoomOutToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
+            this.zoomOutToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.zoomOutToolStripMenuItem1.Text = "Zoom Out";
+            this.zoomOutToolStripMenuItem1.Click += new System.EventHandler(this.ZoomOutToolStripMenuItem_Click);
+            // 
+            // findToolStripMenuItem1
+            // 
+            this.findToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.findToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.findToolStripMenuItem1.Name = "findToolStripMenuItem1";
+            this.findToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.findToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.findToolStripMenuItem1.Text = "Find";
+            this.findToolStripMenuItem1.Click += new System.EventHandler(this.FindToolStripMenuItem_Click);
+            // 
+            // replaceToolStripMenuItem1
+            // 
+            this.replaceToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.replaceToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.replaceToolStripMenuItem1.Name = "replaceToolStripMenuItem1";
+            this.replaceToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.replaceToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.replaceToolStripMenuItem1.Text = "Replace";
+            this.replaceToolStripMenuItem1.Click += new System.EventHandler(this.ReplaceToolStripMenuItem_Click);
+            // 
+            // foldToolStripMenuItem1
+            // 
+            this.foldToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.foldToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.foldToolStripMenuItem1.Name = "foldToolStripMenuItem1";
+            this.foldToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
+            this.foldToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.foldToolStripMenuItem1.Text = "Fold";
+            this.foldToolStripMenuItem1.Click += new System.EventHandler(this.FoldToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem});
+            this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.OptionsToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutSudoCStudioToolStripMenuItem,
+            this.aboutSudoCToolStripMenuItem,
+            this.creditsToolStripMenuItem});
+            this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutSudoCStudioToolStripMenuItem
+            // 
+            this.aboutSudoCStudioToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.aboutSudoCStudioToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.aboutSudoCStudioToolStripMenuItem.Name = "aboutSudoCStudioToolStripMenuItem";
+            this.aboutSudoCStudioToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.aboutSudoCStudioToolStripMenuItem.Text = "About SudoC Studio";
+            this.aboutSudoCStudioToolStripMenuItem.Click += new System.EventHandler(this.AboutSudoCStudioToolStripMenuItem_Click);
+            // 
+            // aboutSudoCToolStripMenuItem
+            // 
+            this.aboutSudoCToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.aboutSudoCToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.aboutSudoCToolStripMenuItem.Name = "aboutSudoCToolStripMenuItem";
+            this.aboutSudoCToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.aboutSudoCToolStripMenuItem.Text = "About SudoC";
+            this.aboutSudoCToolStripMenuItem.Click += new System.EventHandler(this.AboutSudoCToolStripMenuItem_Click);
+            // 
+            // creditsToolStripMenuItem
+            // 
+            this.creditsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.creditsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.creditsToolStripMenuItem.Text = "Credits";
+            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.CreditsToolStripMenuItem_Click);
             // 
             // scMainPreview
             // 
@@ -307,10 +511,12 @@
             this.fctbMainEditor.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
             this.fctbMainEditor.CharHeight = 14;
             this.fctbMainEditor.CharWidth = 8;
+            this.fctbMainEditor.ContextMenuStrip = this.cmsMainEditor;
             this.fctbMainEditor.CurrentLineColor = System.Drawing.Color.Gray;
             this.fctbMainEditor.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbMainEditor.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbMainEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctbMainEditor.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbMainEditor.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fctbMainEditor.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.fctbMainEditor.IsReplaceMode = false;
@@ -324,12 +530,101 @@
             this.fctbMainEditor.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbMainEditor.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbMainEditor.ServiceColors")));
             this.fctbMainEditor.ServiceLinesColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.fctbMainEditor.ShowFoldingLines = true;
             this.fctbMainEditor.Size = new System.Drawing.Size(771, 658);
             this.fctbMainEditor.TabIndex = 0;
             this.fctbMainEditor.WordWrap = true;
             this.fctbMainEditor.Zoom = 100;
             this.fctbMainEditor.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox1_TextChanged);
             this.fctbMainEditor.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox1_TextChangedDelayed);
+            // 
+            // cmsMainEditor
+            // 
+            this.cmsMainEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.cmsMainEditor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.cutToolStripMenuItem1,
+            this.pasteToolStripMenuItem,
+            this.zoomInToolStripMenuItem,
+            this.zoomOutToolStripMenuItem,
+            this.findToolStripMenuItem,
+            this.replaceToolStripMenuItem,
+            this.foldToolStripMenuItem});
+            this.cmsMainEditor.Name = "cmsMainEditor";
+            this.cmsMainEditor.ShowImageMargin = false;
+            this.cmsMainEditor.Size = new System.Drawing.Size(198, 180);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
+            // 
+            // cutToolStripMenuItem1
+            // 
+            this.cutToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.cutToolStripMenuItem1.Name = "cutToolStripMenuItem1";
+            this.cutToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.cutToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
+            this.cutToolStripMenuItem1.Text = "Cut";
+            this.cutToolStripMenuItem1.Click += new System.EventHandler(this.CutToolStripMenuItem1_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
+            // 
+            // zoomInToolStripMenuItem
+            // 
+            this.zoomInToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
+            this.zoomInToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.zoomInToolStripMenuItem.Text = "Zoom In";
+            this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.ZoomInToolStripMenuItem_Click);
+            // 
+            // zoomOutToolStripMenuItem
+            // 
+            this.zoomOutToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
+            this.zoomOutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.zoomOutToolStripMenuItem.Text = "Zoom Out";
+            this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.ZoomOutToolStripMenuItem_Click);
+            // 
+            // findToolStripMenuItem
+            // 
+            this.findToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.findToolStripMenuItem.Name = "findToolStripMenuItem";
+            this.findToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.findToolStripMenuItem.Text = "Find";
+            this.findToolStripMenuItem.Click += new System.EventHandler(this.FindToolStripMenuItem_Click);
+            // 
+            // replaceToolStripMenuItem
+            // 
+            this.replaceToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.replaceToolStripMenuItem.Name = "replaceToolStripMenuItem";
+            this.replaceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.replaceToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.replaceToolStripMenuItem.Text = "Replace";
+            this.replaceToolStripMenuItem.Click += new System.EventHandler(this.ReplaceToolStripMenuItem_Click);
+            // 
+            // foldToolStripMenuItem
+            // 
+            this.foldToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.foldToolStripMenuItem.Name = "foldToolStripMenuItem";
+            this.foldToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
+            this.foldToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.foldToolStripMenuItem.Text = "Fold";
+            this.foldToolStripMenuItem.Click += new System.EventHandler(this.FoldToolStripMenuItem_Click);
             // 
             // dmMainEditor
             // 
@@ -368,6 +663,7 @@
             this.fctbConsole.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbConsole.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctbConsole.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbConsole.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fctbConsole.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.fctbConsole.IsReplaceMode = false;
@@ -383,7 +679,7 @@
             this.fctbConsole.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbConsole.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbConsole.ServiceColors")));
             this.fctbConsole.ServiceLinesColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.fctbConsole.Size = new System.Drawing.Size(970, 204);
+            this.fctbConsole.Size = new System.Drawing.Size(970, 197);
             this.fctbConsole.TabIndex = 8;
             this.fctbConsole.VirtualSpace = true;
             this.fctbConsole.WideCaret = true;
@@ -414,13 +710,13 @@
             // 
             this.tb_ConsoleBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.tb_ConsoleBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.tb_ConsoleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_ConsoleBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tb_ConsoleBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tb_ConsoleBox.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_ConsoleBox.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.tb_ConsoleBox.Location = new System.Drawing.Point(0, 228);
+            this.tb_ConsoleBox.Location = new System.Drawing.Point(0, 221);
             this.tb_ConsoleBox.Name = "tb_ConsoleBox";
-            this.tb_ConsoleBox.Size = new System.Drawing.Size(970, 15);
+            this.tb_ConsoleBox.Size = new System.Drawing.Size(970, 22);
             this.tb_ConsoleBox.TabIndex = 1;
             this.tb_ConsoleBox.Text = "Enter Your Command Here";
             this.tb_ConsoleBox.Enter += new System.EventHandler(this.Tb_ConsoleBox_Enter);
@@ -502,9 +798,11 @@
             this.fctbCWindow.CharHeight = 14;
             this.fctbCWindow.CharWidth = 8;
             this.fctbCWindow.CommentPrefix = "--";
+            this.fctbCWindow.ContextMenuStrip = this.cmsCView;
             this.fctbCWindow.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbCWindow.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbCWindow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctbCWindow.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbCWindow.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fctbCWindow.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.fctbCWindow.IsReplaceMode = false;
@@ -520,6 +818,7 @@
             this.fctbCWindow.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbCWindow.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbCWindow.ServiceColors")));
             this.fctbCWindow.ServiceLinesColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.fctbCWindow.ShowFoldingLines = true;
             this.fctbCWindow.Size = new System.Drawing.Size(548, 537);
             this.fctbCWindow.TabIndex = 5;
             this.fctbCWindow.VirtualSpace = true;
@@ -527,6 +826,54 @@
             this.fctbCWindow.WordWrap = true;
             this.fctbCWindow.Zoom = 100;
             this.fctbCWindow.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.FastColoredTextBox2_TextChanged);
+            // 
+            // cmsCView
+            // 
+            this.cmsCView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.cmsCView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cViewcopyToolStripMenuItem,
+            this.cViewZoomInStripMenuItem,
+            this.cViewZoomOutStripMenuItem,
+            this.cViewFindlStripMenuItem});
+            this.cmsCView.Name = "cmsMainEditor";
+            this.cmsCView.ShowImageMargin = false;
+            this.cmsCView.Size = new System.Drawing.Size(198, 92);
+            // 
+            // cViewcopyToolStripMenuItem
+            // 
+            this.cViewcopyToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.cViewcopyToolStripMenuItem.Name = "cViewcopyToolStripMenuItem";
+            this.cViewcopyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.cViewcopyToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.cViewcopyToolStripMenuItem.Text = "Copy";
+            this.cViewcopyToolStripMenuItem.Click += new System.EventHandler(this.CViewToolStripMenuItem3_Click);
+            // 
+            // cViewZoomInStripMenuItem
+            // 
+            this.cViewZoomInStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.cViewZoomInStripMenuItem.Name = "cViewZoomInStripMenuItem";
+            this.cViewZoomInStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
+            this.cViewZoomInStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.cViewZoomInStripMenuItem.Text = "Zoom In";
+            this.cViewZoomInStripMenuItem.Click += new System.EventHandler(this.CViewZoomInStripMenuItem_Click);
+            // 
+            // cViewZoomOutStripMenuItem
+            // 
+            this.cViewZoomOutStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.cViewZoomOutStripMenuItem.Name = "cViewZoomOutStripMenuItem";
+            this.cViewZoomOutStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
+            this.cViewZoomOutStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.cViewZoomOutStripMenuItem.Text = "Zoom Out";
+            this.cViewZoomOutStripMenuItem.Click += new System.EventHandler(this.CViewZoomOutStripMenuItem_Click);
+            // 
+            // cViewFindlStripMenuItem
+            // 
+            this.cViewFindlStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.cViewFindlStripMenuItem.Name = "cViewFindlStripMenuItem";
+            this.cViewFindlStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.cViewFindlStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.cViewFindlStripMenuItem.Text = "Find";
+            this.cViewFindlStripMenuItem.Click += new System.EventHandler(this.CViewFindlStripMenuItem_Click);
             // 
             // dmCView
             // 
@@ -675,6 +1022,7 @@
             this.fctbCompilerValues.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbCompilerValues.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbCompilerValues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctbCompilerValues.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbCompilerValues.ForeColor = System.Drawing.Color.LawnGreen;
             this.fctbCompilerValues.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.fctbCompilerValues.IsReplaceMode = false;
@@ -744,6 +1092,7 @@
             this.fastColoredTextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBox4.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fastColoredTextBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox4.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBox4.ForeColor = System.Drawing.Color.LawnGreen;
             this.fastColoredTextBox4.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.fastColoredTextBox4.IsReplaceMode = false;
@@ -817,6 +1166,7 @@
             this.fctbCompilerStats.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbCompilerStats.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbCompilerStats.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fctbCompilerStats.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbCompilerStats.ForeColor = System.Drawing.Color.LawnGreen;
             this.fctbCompilerStats.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.fctbCompilerStats.IsReplaceMode = false;
@@ -923,6 +1273,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.scEditorDM)).EndInit();
             this.scEditorDM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctbMainEditor)).EndInit();
+            this.cmsMainEditor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctbConsole)).EndInit();
             this.msConsoleTag.ResumeLayout(false);
             this.msConsoleTag.PerformLayout();
@@ -935,6 +1286,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.scCViewDM)).EndInit();
             this.scCViewDM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctbCWindow)).EndInit();
+            this.cmsCView.ResumeLayout(false);
             this.scTabsPanels.Panel1.ResumeLayout(false);
             this.scTabsPanels.Panel1.PerformLayout();
             this.scTabsPanels.Panel2.ResumeLayout(false);
@@ -1008,6 +1360,35 @@
         private System.Windows.Forms.TextBox tb_ConsoleBox;
         private System.Windows.Forms.ToolStripMenuItem hideConsoleWindowToolStripMenuItem;
         private System.Windows.Forms.ImageList ilPreviewTree;
+        private System.Windows.Forms.ContextMenuStrip cmsMainEditor;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomInToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem replaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem foldToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem zoomInToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem replaceToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem foldToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutSudoCStudioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutSudoCToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip cmsCView;
+        private System.Windows.Forms.ToolStripMenuItem cViewcopyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cViewZoomInStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cViewZoomOutStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cViewFindlStripMenuItem;
     }
 }
 

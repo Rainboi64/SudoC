@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -228,13 +229,29 @@ namespace SudoC_Studio
                 {
                     File.WriteAllText(saveFileDialog.FileName, fctbMainEditor.Text);
                     filename = saveFileDialog.FileName;
-                    bwRunWorker.RunWorkerAsync();
+                    try
+                    {
+                        bwRunWorker.RunWorkerAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        SystemSounds.Asterisk.Play();
+                        lStatus.Text = ex.Message;
+                    }
                 }
             }
             else
             {
                 File.WriteAllText(filename, fctbMainEditor.Text);
-                bwRunWorker.RunWorkerAsync();
+                try
+                {
+                    bwRunWorker.RunWorkerAsync();
+                }
+                catch (Exception ex)
+                {
+                    SystemSounds.Asterisk.Play();
+                    lStatus.Text = ex.Message;
+                }
             }
         }
 
@@ -471,6 +488,89 @@ namespace SudoC_Studio
                 scEditorConsole.Panel2Collapsed = false;
                 StudioStatics.Settings.ConsoleCollapsed = false;
             }
+        }
+
+        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbMainEditor.Copy();
+        }
+
+        private void CutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            fctbMainEditor.Cut();
+        }
+
+        private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbMainEditor.Paste();
+        }
+
+        private void ZoomInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbMainEditor.Zoom += 10;
+        }
+
+        private void ZoomOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbMainEditor.Zoom -= 10;
+        }
+
+        private void ReplaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbMainEditor.replaceForm.ShowDialog();
+        }
+
+        private void FindToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbMainEditor.findForm.ShowDialog();
+        }
+
+        private void FoldToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbMainEditor.CollapseBlock(fctbMainEditor.Selection.Start.iLine,
+               fctbMainEditor.Selection.End.iLine);
+        }
+
+        private void AboutSudoCStudioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("SudoC Studio is project thought of by SudoC Main Developer 'Yaman Alhalabi'. It's main intent was to make SudoC Coding more enjoyable, and fun. It was coded by him too (ME)","About SudoC Studio");
+        }
+
+        private void AboutSudoCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("SudoC is project thought of by 'Mohammed 'Jake Freeman' Ramadan'. It's main intent was to make C coding more fun, and stil maintain the features of coding in C. It was coded by 'Yaman Alhalabi'(ME)", "About SudoC");
+        }
+
+        private void CreditsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Karim 'Omid'\nMohammed 'Jake Freeman'  Ramadan\nYaman Alhalabi\nSudoC/SudoC Studio All Right Reserved.", "SudoC Credits");
+
+        }
+
+        private void CViewToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            fctbCWindow.Copy();
+        }
+
+        private void CViewZoomInStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbCWindow.Zoom += 10;
+        }
+
+        private void CViewZoomOutStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbCWindow.Zoom -= 10;
+        }
+
+        private void CViewFindlStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fctbCWindow.ShowFindDialog();
+        }
+
+        private void OptionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Subforms.OptionDialog optionsDialog = new Subforms.OptionDialog();
+            optionsDialog.ShowDialog();
         }
     }
 }
