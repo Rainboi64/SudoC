@@ -1,3 +1,8 @@
+#Made as a kid
+
+
+
+
 # SudoC
 Programming Language for idoits, written mainly by me(other people are for comidec purposes only).
 # Examples
