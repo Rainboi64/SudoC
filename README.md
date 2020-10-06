@@ -1,8 +1,7 @@
-# Made as a kid
-# The following code is filthy
-
-
-
+# Made as a kid, The following code is filthy
+# 
+# 
+# 
 # SudoC
 Programming Language for idoits, written mainly by me(other people are for comidec purposes only).
 # Examples
